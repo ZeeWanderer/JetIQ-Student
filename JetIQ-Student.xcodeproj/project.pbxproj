@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		505E893423952F0900694E0F /* MarkbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893323952F0900694E0F /* MarkbookView.swift */; };
+		505E893623952F5900694E0F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893523952F5900694E0F /* ScheduleView.swift */; };
+		505E893823953B8100694E0F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893723953B8100694E0F /* LoginView.swift */; };
+		505E893C2395423000694E0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893B2395423000694E0F /* UserData.swift */; };
+		505E894023954B7000694E0F /* ArchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893F23954B7000694E0F /* ArchState.swift */; };
+		505E894223954DCC00694E0F /* APIJsons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894123954DCC00694E0F /* APIJsons.swift */; };
+		505E894423954E3800694E0F /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894323954E3800694E0F /* Defaults.swift */; };
+		505E894623956F4A00694E0F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894523956F4A00694E0F /* Helpers.swift */; };
 		506368962395286400067291 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506368952395286400067291 /* AppDelegate.swift */; };
 		506368982395286400067291 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506368972395286400067291 /* SceneDelegate.swift */; };
 		5063689B2395286400067291 /* JetIQ_Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 506368992395286400067291 /* JetIQ_Student.xcdatamodeld */; };
@@ -14,9 +22,18 @@
 		5063689F2395286800067291 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5063689E2395286800067291 /* Assets.xcassets */; };
 		506368A22395286800067291 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506368A12395286800067291 /* Preview Assets.xcassets */; };
 		506368A52395286800067291 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 506368A32395286800067291 /* LaunchScreen.storyboard */; };
+		5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5096472223C612D90000758C /* SubgroupSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
+		505E893523952F5900694E0F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		505E893723953B8100694E0F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		505E893B2395423000694E0F /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		505E893F23954B7000694E0F /* ArchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchState.swift; sourceTree = "<group>"; };
+		505E894123954DCC00694E0F /* APIJsons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJsons.swift; sourceTree = "<group>"; };
+		505E894323954E3800694E0F /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		505E894523956F4A00694E0F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		506368922395286400067291 /* JetIQ-Student.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JetIQ-Student.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		506368952395286400067291 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		506368972395286400067291 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +43,7 @@
 		506368A12395286800067291 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		506368A42395286800067291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		506368A62395286800067291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5096472223C612D90000758C /* SubgroupSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgroupSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +79,15 @@
 				506368952395286400067291 /* AppDelegate.swift */,
 				506368972395286400067291 /* SceneDelegate.swift */,
 				5063689C2395286400067291 /* ContentView.swift */,
+				5096472223C612D90000758C /* SubgroupSelectionView.swift */,
+				505E893723953B8100694E0F /* LoginView.swift */,
+				505E894323954E3800694E0F /* Defaults.swift */,
+				505E893323952F0900694E0F /* MarkbookView.swift */,
+				505E894123954DCC00694E0F /* APIJsons.swift */,
+				505E893B2395423000694E0F /* UserData.swift */,
+				505E893F23954B7000694E0F /* ArchState.swift */,
+				505E894523956F4A00694E0F /* Helpers.swift */,
+				505E893523952F5900694E0F /* ScheduleView.swift */,
 				5063689E2395286800067291 /* Assets.xcassets */,
 				506368A32395286800067291 /* LaunchScreen.storyboard */,
 				506368A62395286800067291 /* Info.plist */,
@@ -150,9 +177,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				5063689B2395286400067291 /* JetIQ_Student.xcdatamodeld in Sources */,
+				505E893823953B8100694E0F /* LoginView.swift in Sources */,
+				505E894023954B7000694E0F /* ArchState.swift in Sources */,
+				505E893C2395423000694E0F /* UserData.swift in Sources */,
 				506368962395286400067291 /* AppDelegate.swift in Sources */,
+				505E893423952F0900694E0F /* MarkbookView.swift in Sources */,
 				5063689D2395286400067291 /* ContentView.swift in Sources */,
+				505E894623956F4A00694E0F /* Helpers.swift in Sources */,
 				506368982395286400067291 /* SceneDelegate.swift in Sources */,
+				505E894223954DCC00694E0F /* APIJsons.swift in Sources */,
+				5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */,
+				505E893623952F5900694E0F /* ScheduleView.swift in Sources */,
+				505E894423954E3800694E0F /* Defaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,14 +326,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JetIQ-Student/Preview Content\"";
-				DEVELOPMENT_TEAM = 42UNQR4JR7;
+				DEVELOPMENT_TEAM = 2H5SN3R8CC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "JetIQ-Student/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ES.JetIQ-Student";
+				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ.widgetschedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -310,14 +346,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JetIQ-Student/Preview Content\"";
-				DEVELOPMENT_TEAM = 42UNQR4JR7;
+				DEVELOPMENT_TEAM = 2H5SN3R8CC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "JetIQ-Student/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ES.JetIQ-Student";
+				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ.widgetschedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
