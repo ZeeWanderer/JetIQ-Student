@@ -101,6 +101,7 @@ struct LoginView: View
             if let error = error
             {
                 //self?.state = .fetched(.failure(.error(error.localizedDescription)))
+                //let jsonString = String(data: data!, encoding: .utf8)
                 DispatchQueue.main.async
                 {
                 self.performingLogin = false

@@ -26,13 +26,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView().environment(\.managedObjectContext, context)
         
+//        let configuration = URLSessionConfiguration.ephemeral
+//               //configuration.timeoutIntervalForResource = 300
+//               configuration.httpCookieAcceptPolicy = .always
+//               configuration.httpShouldSetCookies = true
+//               if #available(iOS 11, *)
+//               {
+//                   configuration.waitsForConnectivity = true
+//               }
+        //let netSession_ = URLSession(configuration: configuration)
+        //URLSession.shared.configuration = configuration
+        URLSession.shared.configuration.httpCookieAcceptPolicy = .always
+        URLSession.shared.configuration.httpShouldSetCookies = true
+        URLSession.shared.configuration.waitsForConnectivity = true
+        //URLSession.shared.configuration.
+        
         let userData = loadUserData()
         let archState = ArchState(login: userData.password != nil)
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(userData).environmentObject(archState))
+            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(userData).environmentObject(archState).environmentObject(archState))
             self.window = window
             window.makeKeyAndVisible()
         }
