@@ -11,6 +11,14 @@ import SwiftUI
 class ScheduleModel: ObservableObject {
     @Published var schedule: APIJsons.Schedule? = nil
     
+    var isAvailable:Bool
+    {
+        get
+        {
+            return schedule != nil
+        }
+    }
+    
     func fetchShedule(_ userData:UserData)
     {
         let url:URL? = URL(string: "https://iq.vntu.edu.ua/b04213/curriculum/api.php?view=g&group_id=\(userData.group_id!)&f_id=\(userData.f_id!)")!
@@ -118,37 +126,37 @@ struct ScheduleView: View
     
     var body: some View
     {
-        VStack
-            {
-        if $schedule_.schedule.wrappedValue == nil
+    VStack
         {
-            Text("Loading...")
-            .onAppear (perform: {
-                //.schedule_.userData = self.userData
-                    self.schedule_.fetchShedule(self.userData)
-            })
-        }
-        else
-        {
-            List
+            if !schedule_.isAvailable
             {
-                ForEach(schedule_.schedule!.days)
+                Text("Loading...")
+                .onAppear (perform: {
+                    //.schedule_.userData = self.userData
+                        self.schedule_.fetchShedule(self.userData)
+                })
+            }
+            else
+            {
+                List
                 {
-                day in
-                    Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
+                    ForEach(schedule_.schedule!.days)
                     {
-                        ForEach(day.Lessons)
+                    day in
+                        Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
                         {
-                        lesson in
-                            LessonView(lesson: lesson)
-                        }
+                            ForEach(day.Lessons)
+                            {
+                            lesson in
+                                LessonView(lesson: lesson)
+                            }
 
-                    }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                }
-            }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
-            .environment(\.defaultMinListRowHeight, 1)
+                        }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
+                }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
+                //.environment(\.defaultMinListRowHeight, 1)
+            }
         }
-    }
     }
 }
 

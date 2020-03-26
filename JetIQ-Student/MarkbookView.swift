@@ -10,6 +10,14 @@ import SwiftUI
 
 class MarkbookModel: ObservableObject {
     @Published var markbook: APIJsons.Markbook? = nil
+    
+    var isAvailable:Bool
+    {
+        get
+        {
+            return markbook != nil
+        }
+    }
 //    let netSession_:URLSession
 //    init()
 //    {
@@ -125,8 +133,8 @@ struct SubjectView : View
                 Spacer()
                 VStack(alignment: .trailing)
                 {
-                    Text(subject.mark)//.multilineTextAlignment(.center)
-                    Text("Оцінка").font(.subheadline)//.multilineTextAlignment(.center)
+                    Text(subject.mark) //.multilineTextAlignment(.center)
+                    Text("Оцінка").font(.subheadline) //.multilineTextAlignment(.center)
                 }
             }
         }
@@ -143,7 +151,7 @@ struct MarkbookView: View
     {
         VStack
         {
-               if $markbook_.markbook.wrappedValue == nil
+            if (!markbook_.isAvailable)
                {
                    Text("Loading...")
                    .onAppear (perform: {
@@ -169,7 +177,7 @@ struct MarkbookView: View
                            }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                        }
                    }.navigationBarTitle(Text("Markbook"), displayMode: .inline)
-                   .environment(\.defaultMinListRowHeight, 1)
+                   //.environment(\.defaultMinListRowHeight, 1)
                }
            }
     }
