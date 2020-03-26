@@ -22,7 +22,6 @@ struct ContentView: View
             if !archState.isLoggedIn
             {
                 LoginView()
-                
             }
             else if userData.subgroup == nil
             {
@@ -60,7 +59,21 @@ struct ContentView: View
                     }
                     .tag(1)
                     
-                }
+                    NavigationView
+                    {
+                        SettingsView(previousUserdata: userData, selectedSubgroup: userData.subgroup!)
+                    }
+                    .tabItem
+                    {
+                        VStack
+                        {
+                            Image("settings_tab")
+                            Text("Settings")
+                        }
+                    }
+                    .tag(2)
+                    
+                }.edgesIgnoringSafeArea(.top)
             }
         }
     }

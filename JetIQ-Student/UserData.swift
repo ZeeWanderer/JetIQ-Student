@@ -17,6 +17,7 @@ class UserData: Codable, ObservableObject
     @Published var f_id:String? = nil
     
     @Published var subgroup:String? = nil
+    @Published var u_name:String? = nil
     
     enum CodingKeys: String, CodingKey {
         case login
@@ -24,6 +25,7 @@ class UserData: Codable, ObservableObject
         case group_id
         case f_id
         case subgroup
+        case u_name
     }
     
     init(){}
@@ -36,6 +38,7 @@ class UserData: Codable, ObservableObject
         group_id = try values.decode(String?.self, forKey: .group_id)
         f_id = try values.decode(String?.self, forKey: .f_id)
         subgroup = try values.decode(String?.self, forKey: .subgroup) ?? nil
+        u_name = try values.decode(String?.self, forKey: .u_name) ?? nil
     }
 
     func encode(to encoder: Encoder) throws {
@@ -45,6 +48,16 @@ class UserData: Codable, ObservableObject
         try container.encode(group_id, forKey: .group_id)
         try container.encode(f_id, forKey: .f_id)
         try container.encode(subgroup, forKey: .subgroup)
+        try container.encode(u_name, forKey: .u_name)
+    }
+    func clearUserData(){
+        UserDefaults.standard.removeObject(forKey: "UserData")
+        self.f_id = nil
+        self.group_id = nil
+        self.login = nil
+        self.password = nil
+        self.subgroup = nil
+        self.u_name = nil
     }
 }
 

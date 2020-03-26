@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50326D60242A891500539BEE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50326D5F242A891500539BEE /* SettingsView.swift */; };
 		505E893423952F0900694E0F /* MarkbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893323952F0900694E0F /* MarkbookView.swift */; };
 		505E893623952F5900694E0F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893523952F5900694E0F /* ScheduleView.swift */; };
 		505E893823953B8100694E0F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893723953B8100694E0F /* LoginView.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50326D5F242A891500539BEE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
 		505E893523952F5900694E0F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		505E893723953B8100694E0F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				506368972395286400067291 /* SceneDelegate.swift */,
 				5063689C2395286400067291 /* ContentView.swift */,
 				5096472223C612D90000758C /* SubgroupSelectionView.swift */,
+				50326D5F242A891500539BEE /* SettingsView.swift */,
 				505E893723953B8100694E0F /* LoginView.swift */,
 				505E894323954E3800694E0F /* Defaults.swift */,
 				505E893323952F0900694E0F /* MarkbookView.swift */,
@@ -183,6 +186,7 @@
 				506368962395286400067291 /* AppDelegate.swift in Sources */,
 				505E893423952F0900694E0F /* MarkbookView.swift in Sources */,
 				5063689D2395286400067291 /* ContentView.swift in Sources */,
+				50326D60242A891500539BEE /* SettingsView.swift in Sources */,
 				505E894623956F4A00694E0F /* Helpers.swift in Sources */,
 				506368982395286400067291 /* SceneDelegate.swift in Sources */,
 				505E894223954DCC00694E0F /* APIJsons.swift in Sources */,
