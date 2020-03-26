@@ -21,6 +21,21 @@ struct LoginView: View
     
     @State var username:String = ""
     
+    var login_bttn_color:Color
+    {
+        get
+        {
+            if performingLogin
+            {
+                return Color.gray
+            }
+            else
+            {
+                return Color.green
+            }
+        }
+    }
+    
     var body: some View
     {
         VStack
@@ -45,36 +60,18 @@ struct LoginView: View
                 .padding(.trailing, 5)
 
             // TODO:Block button
-            if !performingLogin
+            Button(action: {self.performLogin()})
             {
-                Button(action: {self.performLogin()})
-                {
-                    Text("LOGIN")
-                       .font(.headline)
-                       .foregroundColor(.white)
-                       .padding()
-                       .frame(width: 220, height: 60)
-                       .background(Color.green)
-                       .cornerRadius(15.0)
-                       .padding(.bottom)
+                Text("LOGIN")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 220, height: 60)
+                    .background(login_bttn_color)
+                    .cornerRadius(15.0)
+                    .padding(.bottom)
                     
-                }
-            }
-            else
-            {
-                Button(action: {self.performLogin()})
-                {
-                    Text("LOGIN")
-                       .font(.headline)
-                       .foregroundColor(.white)
-                       .padding()
-                       .frame(width: 220, height: 60)
-                       .background(Color.gray)
-                       .cornerRadius(15.0)
-                    
-                }.disabled(true)
-            }
-
+            }.disabled(performingLogin)
         }.animation(.easeInOut(duration: 0.5))
         .padding(.bottom, keyboard.currentHeight)
         .edgesIgnoringSafeArea(.bottom)
@@ -130,6 +127,7 @@ struct LoginView: View
                     
                     self.userData.group_id = root.gr_id
                     self.userData.f_id = root.f_id
+                    self.userData.u_name = root.u_name
                     
                     saveUserData(userData: self.userData)
                     
