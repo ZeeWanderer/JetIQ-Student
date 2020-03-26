@@ -62,20 +62,20 @@ struct SettingsView: View
     {
         if previousUserdata.subgroup != self.selectedSubgroup
         {
-            DispatchQueue.main.async { [self] in
+            //DispatchQueue.main.async { [self] in
                 self.userData.subgroup = self.selectedSubgroup
                 saveUserData(userData: self.userData)
-            }
+            //}
         }
         
     }
     
     func logOut()
     {
-        DispatchQueue.main.async { [self] in
+        //DispatchQueue.main.async { [self] in
             self.userData.clearUserData()
             self.archState.isLoggedIn = false
-        }
+        //}
         
     }
 }
