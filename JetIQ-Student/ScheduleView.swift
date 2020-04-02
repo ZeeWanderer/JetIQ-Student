@@ -149,9 +149,11 @@ struct ScheduleView: View
                             {
                             lesson in
                                 LessonView(lesson: lesson)
+                                    
                             }
 
-                        }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        }//.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        //.edgesIgnoringSafeArea(.leading)
                     }
                 }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
                 //.environment(\.defaultMinListRowHeight, 1)
