@@ -211,7 +211,7 @@ class APIJsons {
             
         }
         
-        func GetLessonColor()->Color
+        func GetLessonColor(colorScheme:ColorScheme = .light)->Color
         {
             if(self.isWindow)
             {
@@ -219,24 +219,49 @@ class APIJsons {
             }
             else
             {
-                switch self.SbType
+                if colorScheme == .light
                 {
-                case "ЛК":
-                    return Color(#colorLiteral(red: 1, green: 0.8869055742, blue: 0.5970449066, alpha: 1))
-                case "ПЗ":
-                    return Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))
-                case "ЛР":
-                    return Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))
-                case "ДЗ":
-                    return Color(#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
-                case "Зал":
-                    return Color(#colorLiteral(red: 1, green: 0.8472312441, blue: 0.4537079421, alpha: 1))
-                case "Конс":
-                    return Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1))
-                case "Ісп":
-                    return Color(#colorLiteral(red: 0.961265689, green: 0.2604754811, blue: 0.233939329, alpha: 1))
-                default:
-                    return Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+                    switch self.SbType
+                    {
+                    case "ЛК":
+                        return Color(#colorLiteral(red: 1, green: 0.8869055742, blue: 0.5970449066, alpha: 1))
+                    case "ПЗ":
+                        return Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))
+                    case "ЛР":
+                        return Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))
+                    case "ДЗ":
+                        return Color(#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
+                    case "Зал":
+                        return Color(#colorLiteral(red: 1, green: 0.8472312441, blue: 0.4537079421, alpha: 1))
+                    case "Конс":
+                        return Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1))
+                    case "Ісп":
+                        return Color(#colorLiteral(red: 0.961265689, green: 0.2604754811, blue: 0.233939329, alpha: 1))
+                    default:
+                        return Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+                    }
+                }
+                else
+                {
+                    switch self.SbType
+                    {
+                    case "ЛК":
+                        return Color(#colorLiteral(red: 0.4826300761, green: 0.4317500114, blue: 0.2918904648, alpha: 1))
+                    case "ПЗ":
+                        return Color(#colorLiteral(red: 0.396834647, green: 0.4902561156, blue: 0.3309897689, alpha: 1))
+                    case "ЛР":
+                        return Color(#colorLiteral(red: 0.2319329672, green: 0.4154234426, blue: 0.484382233, alpha: 1))
+                    case "ДЗ":
+                        return Color(#colorLiteral(red: 0.3440248997, green: 0.4834080708, blue: 0.2499767521, alpha: 1))
+                    case "Зал":
+                        return Color(#colorLiteral(red: 0.4924651015, green: 0.4193497898, blue: 0.2260875566, alpha: 1))
+                    case "Конс":
+                        return Color(#colorLiteral(red: 0.1162179505, green: 0.3397114481, blue: 0.4914304351, alpha: 1))
+                    case "Ісп":
+                        return Color(#colorLiteral(red: 0.4848310596, green: 0.1277867529, blue: 0.118707702, alpha: 1))
+                    default:
+                        return Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                    }
                 }
             }
         }

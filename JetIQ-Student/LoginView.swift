@@ -13,6 +13,8 @@ struct LoginView: View
     @EnvironmentObject var userData:UserData
     @EnvironmentObject var archState:ArchState
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @ObservedObject private var keyboard = KeyboardResponder()
     
     @State var performingLogin:Bool = false
@@ -40,9 +42,19 @@ struct LoginView: View
     {
         VStack
         {
-            Image("JetIQ")
+            if (colorScheme == ColorScheme.dark)
+            {
+                Image("JetIQ")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .colorInvert()
+            }
+            else
+            {
+                Image("JetIQ")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            }
             
             Text("JetIQ-Student")
                 .font(.largeTitle)

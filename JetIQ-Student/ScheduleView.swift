@@ -68,6 +68,8 @@ struct LessonView :View
 {
     let lesson: APIJsons.Lesson
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View
     {
         
@@ -87,7 +89,15 @@ struct LessonView :View
                 
                 VStack(alignment: .trailing)
                 {
-                    Text(lesson.GetLessonTime()).multilineTextAlignment(.trailing)
+                    if lesson.AddInfo.isEmpty
+                    {
+                        Text(lesson.GetLessonTime()).multilineTextAlignment(.trailing)
+                    }
+                    else
+                    {
+                        Text(lesson.AddInfo)
+                    }
+                    
                     Text(lesson.Auditory).multilineTextAlignment(.trailing)
                 }
                 
@@ -106,7 +116,7 @@ struct LessonView :View
             }
         }
             
-        .listRowBackground(lesson.GetLessonColor())
+        .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
     }
 }
 

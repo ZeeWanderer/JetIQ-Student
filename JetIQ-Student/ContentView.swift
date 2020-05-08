@@ -39,7 +39,7 @@ struct ContentView: View
                     {
                         VStack
                         {
-                            Image("schedule_tab")
+                            Image("schedule_tab").renderingMode(.template)
                             Text("Schedule")
                         }
                     }
@@ -53,7 +53,7 @@ struct ContentView: View
                     {
                         VStack
                         {
-                            Image("markbook_tab")
+                            Image("markbook_tab").renderingMode(.template)
                             Text("Markbook")
                         }
                     }
@@ -67,7 +67,7 @@ struct ContentView: View
                     {
                         VStack
                         {
-                            Image("settings_tab")
+                            Image("settings_tab").renderingMode(.template)
                             Text("Settings")
                         }
                     }
@@ -83,6 +83,6 @@ struct ContentView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        ContentView().environmentObject(UserData()).environmentObject(ArchState(login: true))
+        ContentView().environmentObject(UserData(subgroup: "2")).environmentObject(ArchState(login: true))
     }
 }
