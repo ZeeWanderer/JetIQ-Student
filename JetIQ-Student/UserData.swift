@@ -30,6 +30,11 @@ class UserData: Codable, ObservableObject
     
     init(){}
     
+    init(subgroup:String)
+    {
+        self.subgroup = subgroup
+    }
+    
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 

@@ -49,22 +49,22 @@ struct SettingsView: View
             }
         }.navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
         .listStyle(GroupedListStyle())
-            .onDisappear(perform:{self.saveSettings()})
+        .onDisappear(perform:{self.saveSettings()})
     }
     func saveSettings()
     {
         if archState.isLoggedIn
-            {
-        self.setSubgroup()
-            }
+        {
+            self.setSubgroup()
+        }
     }
     func setSubgroup()
     {
         if previousUserdata.subgroup != self.selectedSubgroup
         {
             //DispatchQueue.main.async { [self] in
-                self.userData.subgroup = self.selectedSubgroup
-                saveUserData(userData: self.userData)
+            self.userData.subgroup = self.selectedSubgroup
+            saveUserData(userData: self.userData)
             //}
         }
         
@@ -73,8 +73,8 @@ struct SettingsView: View
     func logOut()
     {
         //DispatchQueue.main.async { [self] in
-            self.userData.clearUserData()
-            self.archState.isLoggedIn = false
+        self.userData.clearUserData()
+        self.archState.isLoggedIn = false
         //}
         
     }
