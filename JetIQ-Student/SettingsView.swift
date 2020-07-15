@@ -52,17 +52,13 @@ struct SettingsView: View
 //                print("rcieved \(rec)")
 //            self.saveSettings()
 //            }) // suboptimal - gets called 3 times in a row
-        .onDisappear {
-            self.setSubgroup()
-        }
         .navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
         .listStyle(GroupedListStyle())
-        .onDisappear(perform:
-            {   print("onDissapear")
-//                self.saveSettings() // does not get called on dissapear from view
-        
-            })
-        .onAppear(perform: {print("onAppear")})
+        .onDisappear {
+            print("onDissapear")
+            self.saveSettings()
+        }
+        .onAppear{print("onAppear")}
         
             
     }
