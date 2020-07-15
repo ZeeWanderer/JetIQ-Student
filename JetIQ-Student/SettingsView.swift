@@ -32,7 +32,7 @@ struct SettingsView: View
                             Text(string)
                         }
                     }.pickerStyle(SegmentedPickerStyle())
-                
+                    
                 }
             }
             Section(header: Text(""))
@@ -47,11 +47,23 @@ struct SettingsView: View
                     }
                 }
             }
-        }.navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
+        }
+        .onReceive(selectedSubgroup.publisher, perform:{rec in
+                print("rcieved \(rec)")
+            self.saveSettings()
+            }) // suboptimal - gets called 3 times in a row
+        .navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
         .listStyle(GroupedListStyle())
-        .onDisappear(perform:{self.saveSettings()})
+        .onDisappear(perform:
+            {   print("onDissapear")
+//                self.saveSettings() // does not get called on dissapear from view
+        
+            })
+        .onAppear(perform: {print("onAppear")})
+        
+            
     }
-    func saveSettings()
+    nonmutating func saveSettings()
     {
         if archState.isLoggedIn
         {
@@ -60,8 +72,11 @@ struct SettingsView: View
     }
     func setSubgroup()
     {
+        print("prev subgroup \(previousUserdata.subgroup ?? "-1")")
+        print("curr subgroup \(self.selectedSubgroup)")
         if previousUserdata.subgroup != self.selectedSubgroup
         {
+            print("saving new user data")
             //DispatchQueue.main.async { [self] in
             self.userData.subgroup = self.selectedSubgroup
             saveUserData(userData: self.userData)

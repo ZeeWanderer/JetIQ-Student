@@ -57,7 +57,8 @@ class APIJsons {
 
             let year = ".\(calendar.component(.year, from: date))T18:45"
             
-            let sched = (json["sched"] as! [String:AnyObject])
+            guard let sched = (json["sched"] as? [String:AnyObject])
+            else {return}
             
             let dayKeys = Array(sched.keys).sorted{$0.compare($1, options: .numeric) == .orderedAscending}
             
