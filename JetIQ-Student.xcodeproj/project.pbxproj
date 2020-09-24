@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50326D60242A891500539BEE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50326D5F242A891500539BEE /* SettingsView.swift */; };
+		5053C71F251CD9E9001D8033 /* increment_build.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5053C71E251CD9E9001D8033 /* increment_build.sh */; };
 		505E893423952F0900694E0F /* MarkbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893323952F0900694E0F /* MarkbookView.swift */; };
 		505E893623952F5900694E0F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893523952F5900694E0F /* ScheduleView.swift */; };
 		505E893823953B8100694E0F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893723953B8100694E0F /* LoginView.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		50326D5F242A891500539BEE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5053C71E251CD9E9001D8033 /* increment_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = increment_build.sh; sourceTree = "<group>"; };
 		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
 		505E893523952F5900694E0F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		505E893723953B8100694E0F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -55,9 +57,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5053C71D251CD9CF001D8033 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5053C71E251CD9E9001D8033 /* increment_build.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		506368892395286400067291 = {
 			isa = PBXGroup;
 			children = (
+				5053C71D251CD9CF001D8033 /* Scripts */,
 				506368942395286400067291 /* JetIQ-Student */,
 				506368932395286400067291 /* Products */,
 			);
@@ -109,6 +120,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 506368A92395286800067291 /* Build configuration list for PBXNativeTarget "JetIQ-Student" */;
 			buildPhases = (
+				5053C721251CDA52001D8033 /* Set Build Number */,
 				5063688E2395286400067291 /* Sources */,
 				5063688F2395286400067291 /* Frameworks */,
 				506368902395286400067291 /* Resources */,
@@ -163,10 +175,32 @@
 				506368A52395286800067291 /* LaunchScreen.storyboard in Resources */,
 				506368A22395286800067291 /* Preview Assets.xcassets in Resources */,
 				5063689F2395286800067291 /* Assets.xcassets in Resources */,
+				5053C71F251CD9E9001D8033 /* increment_build.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5053C721251CDA52001D8033 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Scripts/increment_build.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5063688E2395286400067291 /* Sources */ = {
