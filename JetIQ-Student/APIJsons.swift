@@ -84,7 +84,7 @@ class APIJsons {
     }
     class Day : Codable, Identifiable
     {
-        let id = UUID()
+        var id = UUID()
         
         let idx:Int
         let date:String
@@ -171,7 +171,7 @@ class APIJsons {
     
     struct Lesson : Codable, Identifiable
     {
-        let id = UUID()
+        var id = UUID()
         
         let Auditory:String
         let SbType:String
@@ -308,7 +308,7 @@ class APIJsons {
         }
         class Semester: Codable, Identifiable
         {
-            let id = UUID()
+            var id = UUID()
             
             let number:String
             var Subjects:[Subject] = []
@@ -327,7 +327,7 @@ class APIJsons {
             
             class Subject: Codable, Identifiable
             {
-                let id = UUID()
+                var id = UUID()
                 
                 let subj_name:String
                 let form:String
