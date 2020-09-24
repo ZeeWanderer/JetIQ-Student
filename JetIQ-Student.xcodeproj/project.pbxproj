@@ -15,7 +15,6 @@
 		505E894023954B7000694E0F /* ArchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893F23954B7000694E0F /* ArchState.swift */; };
 		505E894223954DCC00694E0F /* APIJsons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894123954DCC00694E0F /* APIJsons.swift */; };
 		505E894423954E3800694E0F /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894323954E3800694E0F /* Defaults.swift */; };
-		505E894623956F4A00694E0F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E894523956F4A00694E0F /* Helpers.swift */; };
 		5063689B2395286400067291 /* JetIQ_Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 506368992395286400067291 /* JetIQ_Student.xcdatamodeld */; };
 		5063689D2395286400067291 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5063689C2395286400067291 /* ContentView.swift */; };
 		5063689F2395286800067291 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5063689E2395286800067291 /* Assets.xcassets */; };
@@ -34,7 +33,6 @@
 		505E893F23954B7000694E0F /* ArchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchState.swift; sourceTree = "<group>"; };
 		505E894123954DCC00694E0F /* APIJsons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJsons.swift; sourceTree = "<group>"; };
 		505E894323954E3800694E0F /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
-		505E894523956F4A00694E0F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		506368922395286400067291 /* JetIQ-Student.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JetIQ-Student.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5063689A2395286400067291 /* JetIQ_Student.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JetIQ_Student.xcdatamodel; sourceTree = "<group>"; };
 		5063689C2395286400067291 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				505E894123954DCC00694E0F /* APIJsons.swift */,
 				505E893B2395423000694E0F /* UserData.swift */,
 				505E893F23954B7000694E0F /* ArchState.swift */,
-				505E894523956F4A00694E0F /* Helpers.swift */,
 				505E893523952F5900694E0F /* ScheduleView.swift */,
 				5063689E2395286800067291 /* Assets.xcassets */,
 				506368A32395286800067291 /* LaunchScreen.storyboard */,
@@ -184,7 +181,6 @@
 				5063689D2395286400067291 /* ContentView.swift in Sources */,
 				50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */,
 				50326D60242A891500539BEE /* SettingsView.swift in Sources */,
-				505E894623956F4A00694E0F /* Helpers.swift in Sources */,
 				505E894223954DCC00694E0F /* APIJsons.swift in Sources */,
 				5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */,
 				505E893623952F5900694E0F /* ScheduleView.swift in Sources */,

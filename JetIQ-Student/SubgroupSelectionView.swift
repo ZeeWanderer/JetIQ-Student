@@ -18,7 +18,7 @@ struct SubgroupSelectionView: View
     
     var body: some View
     {
-     VStack
+        VStack
         {
             Text("Select Subgroup:")
             Picker(selection: $selectedSubgroup, label: Text(""))
@@ -30,12 +30,12 @@ struct SubgroupSelectionView: View
             Button(action: {self.setSubgroup()})
             {
                 Text("Select")
-                   .font(.headline)
-                   .foregroundColor(.white)
-                   .padding()
-                   .frame(width: 220, height: 60)
-                   .background(Color.green)
-                   .cornerRadius(15.0)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 220, height: 60)
+                    .background(Color.green)
+                    .cornerRadius(15.0)
                 
             }
         }

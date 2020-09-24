@@ -48,10 +48,10 @@ struct SettingsView: View
                 }
             }
         }
-//        .onReceive(selectedSubgroup.publisher, perform:{rec in
-//                print("rcieved \(rec)")
-//            self.saveSettings()
-//            }) // suboptimal - gets called 3 times in a row
+        //        .onReceive(selectedSubgroup.publisher, perform:{rec in
+        //                print("rcieved \(rec)")
+        //            self.saveSettings()
+        //            }) // suboptimal - gets called 3 times in a row
         .navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
         .listStyle(GroupedListStyle())
         .onDisappear {
@@ -60,7 +60,7 @@ struct SettingsView: View
         }
         .onAppear{print("onAppear")}
         
-            
+        
     }
     nonmutating func saveSettings()
     {

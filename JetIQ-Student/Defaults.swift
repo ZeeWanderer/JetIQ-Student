@@ -6,7 +6,7 @@
 //  Copyright © 2019 EvilSquad. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class Defaults
 {

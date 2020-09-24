@@ -6,19 +6,18 @@
 //  Copyright © 2019 EvilSquad. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
 
 
 class APIJsons {
-
+    
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     
     class LoginResponse: Codable
     {
@@ -52,9 +51,9 @@ class APIJsons {
             formatter.locale = Locale.current
             formatter.calendar = Calendar.current
             formatter.timeZone = TimeZone.autoupdatingCurrent
-
+            
             let calendar = Calendar.current
-
+            
             let year = ".\(calendar.component(.year, from: date))T18:45"
             
             guard let sched = (json["sched"] as? [String:AnyObject])
@@ -71,9 +70,9 @@ class APIJsons {
                 {
                     self.days.append(Day(day: day, idx:Int(dayKey)!, user_data: user_data))
                     // TODO: not the best solution. Insert sorted?
-    //                let newDay = Day(day: day.value as! [String : AnyObject], idx:Int(day.key)!)
-    //                let index = days.index(where: { $0.idx > newDay.idx })
-    //                self.days.insert(newDay, at: index ?? 0)
+                    //                let newDay = Day(day: day.value as! [String : AnyObject], idx:Int(day.key)!)
+                    //                let index = days.index(where: { $0.idx > newDay.idx })
+                    //                self.days.insert(newDay, at: index ?? 0)
                     
                 }
             }
@@ -81,7 +80,7 @@ class APIJsons {
         }
         
         
-
+        
     }
     class Day : Codable, Identifiable
     {
@@ -169,7 +168,7 @@ class APIJsons {
         }
         
     }
-
+    
     struct Lesson : Codable, Identifiable
     {
         let id = UUID()
@@ -288,7 +287,7 @@ class APIJsons {
         }
     }
     
-// MARK: - Markbook
+    // MARK: - Markbook
     class Markbook
     {
         

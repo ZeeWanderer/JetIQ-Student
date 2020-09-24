@@ -15,7 +15,7 @@ struct LoginView: View
     
     @Environment(\.colorScheme) var colorScheme
     
-    @ObservedObject private var keyboard = KeyboardResponder()
+    //@ObservedObject private var keyboard = KeyboardResponder()
     
     @State var performingLogin:Bool = false
     
@@ -85,14 +85,14 @@ struct LoginView: View
                     
             }.disabled(performingLogin)
         }.animation(.easeInOut(duration: 0.5))
-        .padding(.bottom, keyboard.currentHeight)
-        .edgesIgnoringSafeArea(.bottom)
-        .onTapGesture
-        {
-                if self.keyboard.currentHeight != 0
-                { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                }
-        }
+        //.padding(.bottom, keyboard.currentHeight)
+        //.edgesIgnoringSafeArea(.bottom)
+//        .onTapGesture
+//        {
+//                if self.keyboard.currentHeight != 0
+//                { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+//                }
+//        }
 
         
     }

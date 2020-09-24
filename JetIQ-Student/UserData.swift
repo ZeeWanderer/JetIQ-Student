@@ -6,7 +6,7 @@
 //  Copyright © 2019 EvilSquad. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
 class UserData: Codable, ObservableObject
 {
@@ -37,7 +37,7 @@ class UserData: Codable, ObservableObject
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         login = try values.decode(String?.self, forKey: .login)
         password = try values.decode(String?.self, forKey: .password)
         group_id = try values.decode(String?.self, forKey: .group_id)
@@ -45,7 +45,7 @@ class UserData: Codable, ObservableObject
         subgroup = try values.decode(String?.self, forKey: .subgroup) ?? nil
         u_name = try values.decode(String?.self, forKey: .u_name) ?? nil
     }
-
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(login, forKey: .login)

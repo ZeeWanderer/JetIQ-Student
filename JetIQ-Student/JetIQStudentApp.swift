@@ -10,7 +10,7 @@ import SwiftUI
 
 // overrides default print function in release build
 #if !DEBUG
- public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 }
 #endif
 

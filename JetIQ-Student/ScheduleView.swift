@@ -22,45 +22,45 @@ class ScheduleModel: ObservableObject {
     func fetchShedule(_ userData:UserData)
     {
         let url:URL? = URL(string: "https://iq.vntu.edu.ua/b04213/curriculum/api.php?view=g&group_id=\(userData.group_id!)&f_id=\(userData.f_id!)")!
-
+        
         let dataTask:URLSessionDataTask? = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-                        guard let data = data else
-                        {
-                            //self.ScheduleTableViewController?.StopRefreshAnimation()
-                            return
-                        }
-                        let jsonString = String(data: data, encoding: .utf8)
-                        let jsonData = jsonString!.data(using: .utf8)
-
-                        do
+            guard let data = data else
+            {
+                //self.ScheduleTableViewController?.StopRefreshAnimation()
+                return
+            }
+            let jsonString = String(data: data, encoding: .utf8)
+            let jsonData = jsonString!.data(using: .utf8)
+            
+            do
                         {
                             let json = try JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyObject]
                             let Schedule_ = APIJsons.Schedule(json:json, user_data: userData)
                             //self.SaveDayForWidget(Schedule_)
-                                DispatchQueue.main.async
-                                {
-                                        self.schedule = Schedule_
-                                }
-
+                            DispatchQueue.main.async
+                            {
+                                self.schedule = Schedule_
+                            }
+                            
                         }
-        //                catch is DecodingError
-        //                {
-        //                    // TODO:
-        //                    return
-        //                }
-                        catch _
-                        {
-                            //self.TabBarController?.PresenExceptionAlert(title: "Error", message: "Something is wrong with the API server.\nWait and refresh.", animated: true)
-                            // TODO:
-        //                    #if DEBUG
-        //                    print(error)
-        //                    #endif
-                            return
-                        }
-
-
-                    }
-                    dataTask?.resume()
+            //                catch is DecodingError
+            //                {
+            //                    // TODO:
+            //                    return
+            //                }
+            catch _
+            {
+                //self.TabBarController?.PresenExceptionAlert(title: "Error", message: "Something is wrong with the API server.\nWait and refresh.", animated: true)
+                // TODO:
+                //                    #if DEBUG
+                //                    print(error)
+                //                    #endif
+                return
+            }
+            
+            
+        }
+        dataTask?.resume()
     }
 }
 
@@ -84,7 +84,7 @@ struct LessonView :View
                 }
                 Text(lesson.SbType)
                 Text(lesson.Subject)
-            
+                
                 Spacer()
                 
                 VStack(alignment: .trailing)
@@ -110,12 +110,12 @@ struct LessonView :View
                     Text("-").foregroundColor(Color.white)
                 }
                 Spacer()
-
+                
                 Text("Window")
                 
             }
         }
-            
+        
         .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
     }
 }
@@ -136,15 +136,15 @@ struct ScheduleView: View
     
     var body: some View
     {
-    VStack
+        VStack
         {
             if !schedule_.isAvailable
             {
                 Text("Loading...")
-                .onAppear (perform: {
-                    //.schedule_.userData = self.userData
+                    .onAppear (perform: {
+                        //.schedule_.userData = self.userData
                         self.schedule_.fetchShedule(self.userData)
-                })
+                    })
             }
             else
             {
@@ -152,20 +152,22 @@ struct ScheduleView: View
                 {
                     ForEach(schedule_.schedule!.days)
                     {
-                    day in
+                        day in
                         Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
                         {
                             ForEach(day.Lessons)
                             {
-                            lesson in
+                                lesson in
                                 LessonView(lesson: lesson)
-                                    
+                                
                             }
-
+                            
                         }//.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                         //.edgesIgnoringSafeArea(.leading)
+                        
                     }
                 }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
+                .listStyle(PlainListStyle())
                 //.environment(\.defaultMinListRowHeight, 1)
             }
         }

@@ -18,51 +18,51 @@ class MarkbookModel: ObservableObject {
             return markbook != nil
         }
     }
-//    let netSession_:URLSession
-//    init()
-//    {
-//                let configuration = URLSessionConfiguration.ephemeral
-//                       //configuration.timeoutIntervalForResource = 300
-//                       configuration.httpCookieAcceptPolicy = .always
-//                       configuration.httpShouldSetCookies = true
-//
-//                       configuration.waitsForConnectivity = true
-//                       
-//                netSession_ = URLSession(configuration: configuration)
-//    }
+    //    let netSession_:URLSession
+    //    init()
+    //    {
+    //                let configuration = URLSessionConfiguration.ephemeral
+    //                       //configuration.timeoutIntervalForResource = 300
+    //                       configuration.httpCookieAcceptPolicy = .always
+    //                       configuration.httpShouldSetCookies = true
+    //
+    //                       configuration.waitsForConnectivity = true
+    //
+    //                netSession_ = URLSession(configuration: configuration)
+    //    }
     
     func fetchShedule(_ userData:UserData)
     {
         let url:URL? = URL(string: "https://iq.vntu.edu.ua/b04213/curriculum/api.php?markbook=1")!
-
+        
         let dataTask = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-                        guard let data = data else
-                        {
-                            return
-                        }
-                        let jsonString = String(data: data, encoding: .utf8)
-                        let jsonData = jsonString!.data(using: .utf8)
-
-                        do
+            guard let data = data else
+            {
+                return
+            }
+            let jsonString = String(data: data, encoding: .utf8)
+            let jsonData = jsonString!.data(using: .utf8)
+            
+            do
                         {
                             let json = try JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyObject]
                             let Markbook_ = APIJsons.Markbook(json:json)
                             //self.SaveDayForWidget(Schedule_)
-                                DispatchQueue.main.async
-                                {
-                                        self.markbook = Markbook_
-                                }
-
+                            DispatchQueue.main.async
+                            {
+                                self.markbook = Markbook_
+                            }
+                            
                         }
-                        catch _
-                        {
-                            return
-                        }
-
-
-                    }
+            catch _
+            {
+                return
+            }
+            
+            
+        }
         //dataTask.resume()
-
+        
         let dataTask_ = URLSession.shared.dataTask(with:URL(string: "\(Defaults.API_BASE)?login=\(userData.login!)&pwd=\(userData.password!)")!) {(data, response, error) in
             guard data != nil && error == nil else { return }
             //let jsonString = String(data: data!, encoding: .utf8)
@@ -111,7 +111,7 @@ struct SubjectDetailView :View
             SubjectItemRow(name:"Викладач:", value: subject.teacher)
         }.navigationBarTitle(Text(subject.subj_name), displayMode: .inline)
         .listStyle(GroupedListStyle())
-
+        
     }
 }
 
@@ -138,7 +138,7 @@ struct SubjectView : View
                 }
             }
         }
-
+        
     }
 }
 
@@ -152,34 +152,38 @@ struct MarkbookView: View
         VStack
         {
             if (!markbook_.isAvailable)
-               {
-                   Text("Loading...")
-                   .onAppear (perform: {
-                       //.schedule_.userData = self.userData
-                    self.markbook_.fetchShedule(self.userData)
-                   })
-               }
-               else
-               {
-                   List
-                   {
-                       ForEach(markbook_.markbook!.Semesters)
-                       {
-                       semester in
+            {
+                Text("Loading...")
+                    .onAppear (perform: {
+                        //.schedule_.userData = self.userData
+                        self.markbook_.fetchShedule(self.userData)
+                    })
+            }
+            else if markbook_.markbook!.Semesters.isEmpty
+            {
+                Text("No Data")
+            }
+            else
+            {
+                List
+                {
+                    ForEach(markbook_.markbook!.Semesters)
+                    {
+                        semester in
                         Section(header: Text("Семестр \(semester.number)"))
-                           {
-                               ForEach(semester.Subjects)
-                               {
-                               subject in
-                                   SubjectView(subject: subject)
-                               }
-
-                           }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                       }
-                   }.navigationBarTitle(Text("Markbook"), displayMode: .inline)
-                   //.environment(\.defaultMinListRowHeight, 1)
-               }
-           }
+                        {
+                            ForEach(semester.Subjects)
+                            {
+                                subject in
+                                SubjectView(subject: subject)
+                            }
+                            
+                        }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
+                }.navigationBarTitle(Text("Markbook"), displayMode: .inline)
+                //.environment(\.defaultMinListRowHeight, 1)
+            }
+        }
     }
 }
 

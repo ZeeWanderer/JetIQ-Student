@@ -14,7 +14,7 @@ struct ContentView: View
     @EnvironmentObject var archState:ArchState
     
     @State private var selection = 0
- 
+    
     var body: some View
     {
         Group
