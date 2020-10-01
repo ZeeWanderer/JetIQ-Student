@@ -18,6 +18,7 @@ public func print(_ items: Any..., separator: String = " ", terminator: String =
 struct JetIQStudentApp: App {
     let userData : UserData
     let archState : ArchState
+    let localStorage: LocalStorage
     
     init() {
         
@@ -27,12 +28,16 @@ struct JetIQStudentApp: App {
         
         userData = loadUserData()
         archState = ArchState(login: userData.password != nil)
+        localStorage = LocalStorage()
     }
-    var body: some Scene {
-        WindowGroup {
+    var body: some Scene
+    {
+        WindowGroup
+        {
             ContentView()
                 .environmentObject(userData)
                 .environmentObject(archState)
+                .environmentObject(localStorage)
         }
     }
 }

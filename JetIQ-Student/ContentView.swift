@@ -47,6 +47,20 @@ struct ContentView: View
                     
                     NavigationView
                     {
+                        SuccessLogView()
+                    }
+                    .tabItem
+                    {
+                        VStack
+                        {
+                            Image("success_log_tab").renderingMode(.template)
+                            Text("Success Log")
+                        }
+                    }
+                    .tag(1)
+                    
+                    NavigationView
+                    {
                         MarkbookView()
                     }
                     .tabItem
@@ -57,7 +71,7 @@ struct ContentView: View
                             Text("Markbook")
                         }
                     }
-                    .tag(1)
+                    .tag(2)
                     
                     NavigationView
                     {
@@ -71,9 +85,10 @@ struct ContentView: View
                             Text("Settings")
                         }
                     }
-                    .tag(2)
+                    .tag(3)
                     
-                }//.edgesIgnoringSafeArea(.top)
+                }.navigationViewStyle(StackNavigationViewStyle())
+                //.edgesIgnoringSafeArea(.top)
             }
         }
     }

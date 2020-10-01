@@ -10,6 +10,8 @@
 		501C6E962524EC4400AB6A2E /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501C6E952524EC4400AB6A2E /* LessonView.swift */; };
 		50326D60242A891500539BEE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50326D5F242A891500539BEE /* SettingsView.swift */; };
 		5056C1A92526366600B53E3A /* SwiftUIPullToRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 5056C1A82526366600B53E3A /* SwiftUIPullToRefresh */; };
+		5056C1B625263F4600B53E3A /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056C1B525263F4600B53E3A /* LocalStorage.swift */; };
+		5056C1B925264B0F00B53E3A /* SuccessLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056C1B825264B0F00B53E3A /* SuccessLogView.swift */; };
 		505E893423952F0900694E0F /* MarkbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893323952F0900694E0F /* MarkbookView.swift */; };
 		505E893623952F5900694E0F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893523952F5900694E0F /* ScheduleView.swift */; };
 		505E893823953B8100694E0F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893723953B8100694E0F /* LoginView.swift */; };
@@ -23,6 +25,7 @@
 		506368A22395286800067291 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506368A12395286800067291 /* Preview Assets.xcassets */; };
 		506368A52395286800067291 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 506368A32395286800067291 /* LaunchScreen.storyboard */; };
 		5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5096472223C612D90000758C /* SubgroupSelectionView.swift */; };
+		509F61D32526546A00C8FF71 /* SuccessLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */; };
 		50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +33,8 @@
 		501C6E952524EC4400AB6A2E /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		50326D5F242A891500539BEE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5053C71E251CD9E9001D8033 /* increment_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = increment_build.sh; sourceTree = "<group>"; };
+		5056C1B525263F4600B53E3A /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		5056C1B825264B0F00B53E3A /* SuccessLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessLogView.swift; sourceTree = "<group>"; };
 		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
 		505E893523952F5900694E0F /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		505E893723953B8100694E0F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -45,6 +50,7 @@
 		506368A42395286800067291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		506368A62395286800067291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5096472223C612D90000758C /* SubgroupSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgroupSelectionView.swift; sourceTree = "<group>"; };
+		509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessLogDetailView.swift; sourceTree = "<group>"; };
 		50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetIQStudentApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,15 +105,17 @@
 			children = (
 				50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */,
 				5063689C2395286400067291 /* ContentView.swift */,
+				501C6E932524EC2100AB6A2E /* Schedule */,
+				509F61D12526545500C8FF71 /* SuccessLog */,
 				5096472223C612D90000758C /* SubgroupSelectionView.swift */,
+				505E893323952F0900694E0F /* MarkbookView.swift */,
 				50326D5F242A891500539BEE /* SettingsView.swift */,
 				505E893723953B8100694E0F /* LoginView.swift */,
 				505E894323954E3800694E0F /* Defaults.swift */,
-				505E893323952F0900694E0F /* MarkbookView.swift */,
 				505E894123954DCC00694E0F /* APIJsons.swift */,
 				505E893B2395423000694E0F /* UserData.swift */,
 				505E893F23954B7000694E0F /* ArchState.swift */,
-				501C6E932524EC2100AB6A2E /* Schedule */,
+				5056C1B525263F4600B53E3A /* LocalStorage.swift */,
 				5063689E2395286800067291 /* Assets.xcassets */,
 				506368A32395286800067291 /* LaunchScreen.storyboard */,
 				506368A62395286800067291 /* Info.plist */,
@@ -123,6 +131,15 @@
 				506368A12395286800067291 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		509F61D12526545500C8FF71 /* SuccessLog */ = {
+			isa = PBXGroup;
+			children = (
+				5056C1B825264B0F00B53E3A /* SuccessLogView.swift */,
+				509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */,
+			);
+			path = SuccessLog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,13 +246,16 @@
 				505E894023954B7000694E0F /* ArchState.swift in Sources */,
 				505E893C2395423000694E0F /* UserData.swift in Sources */,
 				501C6E962524EC4400AB6A2E /* LessonView.swift in Sources */,
+				5056C1B625263F4600B53E3A /* LocalStorage.swift in Sources */,
 				505E893423952F0900694E0F /* MarkbookView.swift in Sources */,
 				5063689D2395286400067291 /* ContentView.swift in Sources */,
 				50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */,
+				5056C1B925264B0F00B53E3A /* SuccessLogView.swift in Sources */,
 				50326D60242A891500539BEE /* SettingsView.swift in Sources */,
 				505E894223954DCC00694E0F /* APIJsons.swift in Sources */,
 				5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */,
 				505E893623952F5900694E0F /* ScheduleView.swift in Sources */,
+				509F61D32526546A00C8FF71 /* SuccessLogDetailView.swift in Sources */,
 				505E894423954E3800694E0F /* Defaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +406,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -408,7 +428,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
