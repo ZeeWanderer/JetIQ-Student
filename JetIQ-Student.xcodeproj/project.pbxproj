@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501C6E962524EC4400AB6A2E /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501C6E952524EC4400AB6A2E /* LessonView.swift */; };
 		50326D60242A891500539BEE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50326D5F242A891500539BEE /* SettingsView.swift */; };
-		5053C71F251CD9E9001D8033 /* increment_build.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5053C71E251CD9E9001D8033 /* increment_build.sh */; };
+		5056C1A92526366600B53E3A /* SwiftUIPullToRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 5056C1A82526366600B53E3A /* SwiftUIPullToRefresh */; };
 		505E893423952F0900694E0F /* MarkbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893323952F0900694E0F /* MarkbookView.swift */; };
 		505E893623952F5900694E0F /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893523952F5900694E0F /* ScheduleView.swift */; };
 		505E893823953B8100694E0F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E893723953B8100694E0F /* LoginView.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		501C6E952524EC4400AB6A2E /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		50326D5F242A891500539BEE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5053C71E251CD9E9001D8033 /* increment_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = increment_build.sh; sourceTree = "<group>"; };
 		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
@@ -51,12 +53,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5056C1A92526366600B53E3A /* SwiftUIPullToRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		501C6E932524EC2100AB6A2E /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				505E893523952F5900694E0F /* ScheduleView.swift */,
+				501C6E952524EC4400AB6A2E /* LessonView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
 		5053C71D251CD9CF001D8033 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,7 +107,7 @@
 				505E894123954DCC00694E0F /* APIJsons.swift */,
 				505E893B2395423000694E0F /* UserData.swift */,
 				505E893F23954B7000694E0F /* ArchState.swift */,
-				505E893523952F5900694E0F /* ScheduleView.swift */,
+				501C6E932524EC2100AB6A2E /* Schedule */,
 				5063689E2395286800067291 /* Assets.xcassets */,
 				506368A32395286800067291 /* LaunchScreen.storyboard */,
 				506368A62395286800067291 /* Info.plist */,
@@ -130,6 +142,9 @@
 			dependencies = (
 			);
 			name = "JetIQ-Student";
+			packageProductDependencies = (
+				5056C1A82526366600B53E3A /* SwiftUIPullToRefresh */,
+			);
 			productName = "JetIQ-Student";
 			productReference = 506368922395286400067291 /* JetIQ-Student.app */;
 			productType = "com.apple.product-type.application";
@@ -158,6 +173,9 @@
 				Base,
 			);
 			mainGroup = 506368892395286400067291;
+			packageReferences = (
+				5056C1A72526366600B53E3A /* XCRemoteSwiftPackageReference "SwiftUIPullToRefresh" */,
+			);
 			productRefGroup = 506368932395286400067291 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -175,7 +193,6 @@
 				506368A52395286800067291 /* LaunchScreen.storyboard in Resources */,
 				506368A22395286800067291 /* Preview Assets.xcassets in Resources */,
 				5063689F2395286800067291 /* Assets.xcassets in Resources */,
-				5053C71F251CD9E9001D8033 /* increment_build.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +228,7 @@
 				505E893823953B8100694E0F /* LoginView.swift in Sources */,
 				505E894023954B7000694E0F /* ArchState.swift in Sources */,
 				505E893C2395423000694E0F /* UserData.swift in Sources */,
+				501C6E962524EC4400AB6A2E /* LessonView.swift in Sources */,
 				505E893423952F0900694E0F /* MarkbookView.swift in Sources */,
 				5063689D2395286400067291 /* ContentView.swift in Sources */,
 				50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */,
@@ -416,6 +434,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5056C1A72526366600B53E3A /* XCRemoteSwiftPackageReference "SwiftUIPullToRefresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/muhammedtanriverdi/SwiftUIPullToRefresh.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5056C1A82526366600B53E3A /* SwiftUIPullToRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5056C1A72526366600B53E3A /* XCRemoteSwiftPackageReference "SwiftUIPullToRefresh" */;
+			productName = SwiftUIPullToRefresh;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		506368992395286400067291 /* JetIQ_Student.xcdatamodeld */ = {

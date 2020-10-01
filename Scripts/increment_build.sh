@@ -1,5 +1,5 @@
 #!/bin/sh -ex
-if [ ! ${IS_AZURE} ]
+if [ ! "$IS_AZURE" = 'true' -a ! "$ACTION" = 'install'  ] ;
 then
    currentNumber=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$PRODUCT_SETTINGS_PATH")
    buildNumber=$(git rev-list --count HEAD)

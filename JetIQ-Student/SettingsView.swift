@@ -48,12 +48,9 @@ struct SettingsView: View
                 }
             }
         }
-        //        .onReceive(selectedSubgroup.publisher, perform:{rec in
-        //                print("rcieved \(rec)")
-        //            self.saveSettings()
-        //            }) // suboptimal - gets called 3 times in a row
         .navigationBarTitle(Text(userData.u_name ?? "user"), displayMode: .inline)
         .listStyle(GroupedListStyle())
+        .navigationViewStyle(StackNavigationViewStyle())
         .onDisappear {
             print("onDissapear")
             self.saveSettings()
