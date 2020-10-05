@@ -19,6 +19,8 @@ struct LoginView: View
     
     @State var performingLogin:Bool = false
     
+    @State var wrongCredentials:Bool = false
+    
     @State var password:String = ""
     
     @State var username:String = ""
@@ -45,19 +47,25 @@ struct LoginView: View
             if (colorScheme == ColorScheme.dark)
             {
                 Image("JetIQ")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .colorInvert()
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .colorInvert()
             }
             else
             {
                 Image("JetIQ")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
             }
             
             Text("JetIQ-Student")
                 .font(.largeTitle)
+            
+            if(self.wrongCredentials)
+            {
+                Text("Wrong login or password")
+                    .foregroundColor(Color.red)
+            }
             
             TextField("Username", text: $username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -70,7 +78,7 @@ struct LoginView: View
                 .padding(.bottom, 15)
                 .padding(.leading, 5)
                 .padding(.trailing, 5)
-
+            
             // TODO:Block button
             Button(action: {self.performLogin()})
             {
@@ -82,18 +90,18 @@ struct LoginView: View
                     .background(login_bttn_color)
                     .cornerRadius(15.0)
                     .padding(.bottom)
-                    
+                
             }.disabled(performingLogin)
         }.animation(.easeInOut(duration: 0.5))
         //.padding(.bottom, keyboard.currentHeight)
         //.edgesIgnoringSafeArea(.bottom)
-//        .onTapGesture
-//        {
-//                if self.keyboard.currentHeight != 0
-//                { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-//                }
-//        }
-
+        //        .onTapGesture
+        //        {
+        //                if self.keyboard.currentHeight != 0
+        //                { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        //                }
+        //        }
+        
         
     }
     
@@ -106,6 +114,7 @@ struct LoginView: View
         
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         self.performingLogin = true
+        self.wrongCredentials = false
         URLSession.shared.dataTask(with: URL(string: "\(Defaults.API_BASE)?login=\(username)&pwd=\(password)")!) { [self] (data, _, error) in
             if let error = error
             {
@@ -113,7 +122,7 @@ struct LoginView: View
                 //let jsonString = String(data: data!, encoding: .utf8)
                 DispatchQueue.main.async
                 {
-                self.performingLogin = false
+                    self.performingLogin = false
                 }
                 return
             }
@@ -123,15 +132,15 @@ struct LoginView: View
                 //self?.state = .fetched(.failure(.error("Malformed response data")))
                 DispatchQueue.main.async
                 {
-                self.performingLogin = false
+                    self.performingLogin = false
                 }
                 return
             }
             let root = try! JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
-
+            
             if root.id != nil && !(root.session?.starts(with: "wrong") ?? false)
             {
-            
+                
                 DispatchQueue.main.async { [self] in
                     //self?.state = .fetched(.success(root))
                     self.userData.password = self.password
@@ -143,8 +152,12 @@ struct LoginView: View
                     
                     saveUserData(userData: self.userData)
                     
+                    self.wrongCredentials = false
                     self.performingLogin = false
-                    self.archState.isLoggedIn = true
+                    withAnimation
+                    {
+                        self.archState.isLoggedIn = true
+                    }
                 }
             }
             else
@@ -152,7 +165,8 @@ struct LoginView: View
                 // TODO: WRONG login or password
                 DispatchQueue.main.async
                 {
-                self.performingLogin = false
+                    self.wrongCredentials = true
+                    self.performingLogin = false
                 }
                 return
             }

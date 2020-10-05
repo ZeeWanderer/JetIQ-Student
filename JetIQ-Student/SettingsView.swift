@@ -12,7 +12,7 @@ struct SettingsView: View
 {
     let previousUserdata:UserData
     
-    @State var selectedSubgroup:String = ""
+    @State var selectedSubgroup:String
     @EnvironmentObject var userData:UserData
     @EnvironmentObject var archState:ArchState
     
@@ -30,6 +30,7 @@ struct SettingsView: View
                     {
                         ForEach(subgroups, id: \.self) { string in
                             Text(string)
+                                .tag(string)
                         }
                     }.pickerStyle(SegmentedPickerStyle())
                     
@@ -93,6 +94,6 @@ struct SettingsView: View
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(previousUserdata: UserData())
+        SettingsView(previousUserdata: UserData(), selectedSubgroup: "None")
     }
 }

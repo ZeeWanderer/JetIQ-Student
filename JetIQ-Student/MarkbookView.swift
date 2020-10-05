@@ -44,16 +44,16 @@ class MarkbookModel: ObservableObject {
             let jsonData = jsonString!.data(using: .utf8)
             
             do
-                        {
-                            let json = try JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyObject]
-                            let Markbook_ = APIJsons.Markbook(json:json)
-                            //self.SaveDayForWidget(Schedule_)
-                            DispatchQueue.main.async
-                            {
-                                self.markbook = Markbook_
-                            }
-                            
-                        }
+            {
+                let json = try JSONSerialization.jsonObject(with: jsonData!, options: []) as! [String: AnyObject]
+                let Markbook_ = APIJsons.Markbook(json:json)
+                //self.SaveDayForWidget(Schedule_)
+                DispatchQueue.main.async
+                {
+                    self.markbook = Markbook_
+                }
+                
+            }
             catch _
             {
                 return

@@ -162,7 +162,7 @@ struct SuccessLogDetailView: View {
                             {
                                 Text("ECTS:")
                                 Spacer()
-                                Text(!detail_info.ects.isEmpty ? detail_info.ects:"None" )
+                                Text(!detail_info.ects.isEmpty ? detail_info.ects : "None" )
                             }
                             HStack
                             {

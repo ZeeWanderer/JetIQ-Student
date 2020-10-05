@@ -187,10 +187,10 @@ class APIJsons {
     {
         var sectionNumber: Int {return days.count }
         var days:[Day] = []
-        let user_data: UserData
+        //let user_data: UserData
         init(json:[String:AnyObject], user_data: UserData)
         {
-            self.user_data = user_data
+            //self.user_data = user_data
             let date = Date()
             
             let formatter = DateFormatter()
@@ -239,10 +239,10 @@ class APIJsons {
         let week_num:Int
         let weeks_shift:Int
         var Lessons:[Lesson] = []
-        let user_data: UserData
+        //let user_data: UserData
         init(day:[String:AnyObject], idx:Int, user_data: UserData)
         {
-            self.user_data = user_data
+            //self.user_data = user_data
             self.idx = idx
             self.date = (day["date"] as! String)
             self.dow = (day["dow"] as! String)
@@ -417,20 +417,25 @@ class APIJsons {
         {
             switch self.Number
             {
-            case 1...6:
+            case 1...7:
                 return "\(8+self.Number-1):15"
-            case 7,8:
-                return "\(14+self.Number-7):45"
-            case 9,10:
-                return "16:40"
-            case 11,12:
-                return "18:10"
-            case 13,14:
-                return "19:40"
+            case 8:
+                return "15:10"
+            case 9:
+                return "16:05"
+            case 10:
+                return "17:00"
+            case 11:
+                return "17:55"
+            case 12:
+                return "18:50"
+            case 13:
+                return "19:45"
+            case 14:
+                return "20:35"
             default:
                 return ""
             }
-            
         }
     }
     

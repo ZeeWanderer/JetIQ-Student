@@ -12,7 +12,7 @@ struct SubgroupSelectionView: View
 {
     @EnvironmentObject var userData:UserData
     
-    @State private var selectedSubgroup = ""
+    @State private var selectedSubgroup = "None"
     
     let subgroups = ["None", "1", "2", "3", "4", "5"]
     
@@ -25,6 +25,7 @@ struct SubgroupSelectionView: View
             {
                 ForEach(subgroups, id: \.self) { (string: String) in
                     Text(string)
+                        .tag(string)
                 }
             }
             Button(action: {self.setSubgroup()})
@@ -45,7 +46,10 @@ struct SubgroupSelectionView: View
         DispatchQueue.main.async { [self] in
             
             //self.userData.subgroup = self.selectedStrength
+            withAnimation
+            {
             self.userData.subgroup = self.selectedSubgroup
+            }
             saveUserData(userData: self.userData)
         }
         

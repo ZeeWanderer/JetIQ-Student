@@ -22,10 +22,12 @@ struct ContentView: View
             if !archState.isLoggedIn
             {
                 LoginView()
+                    .transition(.slide)
             }
             else if userData.subgroup == nil
             {
                 SubgroupSelectionView()
+                    .transition(.slide)
             }
             else
             {
