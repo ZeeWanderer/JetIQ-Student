@@ -94,7 +94,7 @@ struct LoginView: View
             
             Button(action: {self.performLogin()})
             {
-                Text("LOGIN")
+                Text(self.performingLogin ? "LOGGING IN..." : "LOGIN")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -109,8 +109,6 @@ struct LoginView: View
     
     func performLogin()
     {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-        
         username = username.trimmingCharacters(in: .whitespacesAndNewlines)
         password = password.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -118,11 +116,14 @@ struct LoginView: View
         {
             self.login_error_message = self.login_error_empty_login
             self.b_error_on_login = true
+            self.performingLogin = false
             return
         }
         
         self.performingLogin = true
         self.b_error_on_login = false
+        
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         
         URLSession.shared.dataTask(with: URL(string: "\(Defaults.API_BASE)?login=\(username)&pwd=\(password)")!) { [self] (data, _, error) in
             if let error = error
@@ -142,6 +143,7 @@ struct LoginView: View
                 DispatchQueue.main.async
                 {
                     self.login_error_message = self.login_error_no_data
+                    self.b_error_on_login = true
                     self.performingLogin = false
                 }
                 return
@@ -187,6 +189,7 @@ struct LoginView: View
                 DispatchQueue.main.async
                 {
                     self.login_error_message = self.login_error_json_parse_failed
+                    self.b_error_on_login = true
                     self.performingLogin = false
                 }
             }
