@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SystemConfiguration
 
 struct LoginView: View
 {
@@ -19,11 +20,23 @@ struct LoginView: View
     
     @State var performingLogin:Bool = false
     
-    @State var wrongCredentials:Bool = false
+    @State var b_error_on_login:Bool = false
     
     @State var password:String = ""
     
     @State var username:String = ""
+    
+    @State var login_error_message:String = ""
+    
+    let reachability = SCNetworkReachabilityCreateWithName(nil,"https://connectivitycheck.gstatic.com/generate_204")
+    
+    private let login_error_wrong_login = "Wrong login or password"
+    private let login_error_empty_login = "Empty login or password"
+    private let login_error_no_internet = "No internet connection"
+    private let login_error_no_data = "API sent no data in response"
+    private let login_error_recv_failed = "Revieve failed"
+    private let login_error_json_parse_failed = "Session json parcing failed"
+    private let login_error_unknown_error = "Unknown error"
     
     var login_bttn_color:Color
     {
@@ -61,9 +74,9 @@ struct LoginView: View
             Text("JetIQ-Student")
                 .font(.largeTitle)
             
-            if(self.wrongCredentials)
+            if(b_error_on_login)
             {
-                Text("Wrong login or password")
+                Text(login_error_message)
                     .foregroundColor(Color.red)
             }
             
@@ -79,7 +92,6 @@ struct LoginView: View
                 .padding(.leading, 5)
                 .padding(.trailing, 5)
             
-            // TODO:Block button
             Button(action: {self.performLogin()})
             {
                 Text("LOGIN")
@@ -93,35 +105,33 @@ struct LoginView: View
                 
             }.disabled(performingLogin)
         }.animation(.easeInOut(duration: 0.5))
-        //.padding(.bottom, keyboard.currentHeight)
-        //.edgesIgnoringSafeArea(.bottom)
-        //        .onTapGesture
-        //        {
-        //                if self.keyboard.currentHeight != 0
-        //                { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-        //                }
-        //        }
-        
-        
     }
     
     func performLogin()
     {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+        
+        username = username.trimmingCharacters(in: .whitespacesAndNewlines)
+        password = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         if username.isEmpty || password.isEmpty
         {
+            self.login_error_message = self.login_error_empty_login
+            self.b_error_on_login = true
             return
         }
         
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         self.performingLogin = true
-        self.wrongCredentials = false
+        self.b_error_on_login = false
+        
         URLSession.shared.dataTask(with: URL(string: "\(Defaults.API_BASE)?login=\(username)&pwd=\(password)")!) { [self] (data, _, error) in
             if let error = error
             {
-                //self?.state = .fetched(.failure(.error(error.localizedDescription)))
-                //let jsonString = String(data: data!, encoding: .utf8)
                 DispatchQueue.main.async
                 {
+                    print(error)
+                    self.login_error_message = self.login_error_no_internet
+                    self.b_error_on_login = true
                     self.performingLogin = false
                 }
                 return
@@ -129,46 +139,56 @@ struct LoginView: View
             
             guard let data = data else
             {
-                //self?.state = .fetched(.failure(.error("Malformed response data")))
                 DispatchQueue.main.async
                 {
+                    self.login_error_message = self.login_error_no_data
                     self.performingLogin = false
                 }
                 return
             }
-            let root = try! JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
-            
-            if root.id != nil && !(root.session?.starts(with: "wrong") ?? false)
+            do
             {
+                let root = try JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
                 
-                DispatchQueue.main.async { [self] in
-                    //self?.state = .fetched(.success(root))
-                    self.userData.password = self.password
-                    self.userData.login = self.username
+                if root.id != nil && !(root.session?.starts(with: "wrong") ?? false)
+                {
                     
-                    self.userData.group_id = root.gr_id
-                    self.userData.f_id = root.f_id
-                    self.userData.u_name = root.u_name
-                    
-                    saveUserData(userData: self.userData)
-                    
-                    self.wrongCredentials = false
-                    self.performingLogin = false
-                    withAnimation
-                    {
-                        self.archState.isLoggedIn = true
+                    DispatchQueue.main.async { [self] in
+                        self.userData.password = self.password
+                        self.userData.login = self.username
+                        
+                        self.userData.group_id = root.gr_id
+                        self.userData.f_id = root.f_id
+                        self.userData.u_name = root.u_name
+                        
+                        saveUserData(userData: self.userData)
+                        
+                        self.b_error_on_login = false
+                        self.performingLogin = false
+                        withAnimation
+                        {
+                            self.archState.isLoggedIn = true
+                        }
                     }
                 }
+                else
+                {
+                    DispatchQueue.main.async
+                    {
+                        self.login_error_message = self.login_error_wrong_login
+                        self.b_error_on_login = true
+                        self.performingLogin = false
+                    }
+                    return
+                }
             }
-            else
+            catch _
             {
-                // TODO: WRONG login or password
                 DispatchQueue.main.async
                 {
-                    self.wrongCredentials = true
+                    self.login_error_message = self.login_error_json_parse_failed
                     self.performingLogin = false
                 }
-                return
             }
         }.resume()
     }

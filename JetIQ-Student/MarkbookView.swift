@@ -63,12 +63,19 @@ class MarkbookModel: ObservableObject {
         }
         //dataTask.resume()
         
-        let dataTask_ = URLSession.shared.dataTask(with:URL(string: "\(Defaults.API_BASE)?login=\(userData.login!)&pwd=\(userData.password!)")!) {(data, response, error) in
-            guard data != nil && error == nil else { return }
-            //let jsonString = String(data: data!, encoding: .utf8)
-            dataTask.resume()
+        if let login = userData.login, let password = userData.password, !login.isEmpty && !password.isEmpty
+        {
+            
+            let login_string = "\(Defaults.API_BASE)?login=\(login)&pwd=\(password)"
+            
+            let login_data_task = URLSession.shared.dataTask(with:URL(string:login_string)!)
+            {(data, response, error) in
+                guard data != nil && error == nil else { return }
+                //let jsonString = String(data: data!, encoding: .utf8)
+                dataTask.resume()
+            }
+            login_data_task.resume()
         }
-        dataTask_.resume()
     }
 }
 
