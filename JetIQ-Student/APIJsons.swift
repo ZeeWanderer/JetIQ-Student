@@ -253,9 +253,10 @@ class APIJsons {
             lessonKeys.removeAll(where: {$0.count > 2})
             lessonKeys.sort{$0.compare($1, options: .numeric) == .orderedDescending}
             //let min = Int(lessonKeys[lessonKeys.count-1])!
+            let t = user_data.subgroup
             for lessonKey in lessonKeys // Window Detection
             {
-                if ((day[lessonKey] as! [String:AnyObject]).keys.contains("") || (day[lessonKey] as! [String:AnyObject]).keys.contains((user_data.subgroup)!) )
+                if let lesson = (day[lessonKey] as? [String:AnyObject]), lesson.keys.contains("") || lesson.keys.contains(user_data.subgroup!)
                 {
                     break
                 }
@@ -269,7 +270,7 @@ class APIJsons {
             
             for lessonKey in lessonKeys // Window Detection
             {
-                if ((day[lessonKey] as! [String:AnyObject]).keys.contains("") || (day[lessonKey] as! [String:AnyObject]).keys.contains((user_data.subgroup)!) )
+                if let lesson = (day[lessonKey] as? [String:AnyObject]), lesson.keys.contains("") || lesson.keys.contains(user_data.subgroup!)
                 {
                     break
                 }
@@ -279,6 +280,10 @@ class APIJsons {
                 }
             }
             
+            if lessonKeys.isEmpty
+            {
+                return
+            }
             
             //var bIsWindow = false
             var key:String = ""
@@ -329,6 +334,12 @@ class APIJsons {
         let Teacher:String
         let isWindow:Bool
         let isSession:Bool
+        
+        let start_time:String
+        let end_time:String
+        
+        let link:String
+        
         init(lesson:[String:AnyObject]?)
         {
             
@@ -339,6 +350,17 @@ class APIJsons {
             self.Comment = lesson!["comment"] as! String
             self.AddInfo = lesson!["add_info"] as! String
             self.Teacher = lesson!["t_name"] as! String
+            
+            
+            let _link = lesson!["meet_url"] as? String ?? ""
+            self.link = _link
+            
+            let l_beg_str = lesson!["l_beg"] as! String
+            let l_end_str = lesson!["l_end"] as! String
+            
+            self.start_time = l_beg_str.split(separator: ",")[0..<2].joined(separator: ":")
+            self.end_time = l_end_str.split(separator: ",")[0..<2].joined(separator: ":")
+            
             self.isWindow = false
             self.isSession = !self.AddInfo.isEmpty
         }
@@ -353,6 +375,9 @@ class APIJsons {
             self.Comment = ""
             self.AddInfo = ""
             self.Teacher = ""
+            self.start_time = ""
+            self.end_time = ""
+            self.link = ""
             self.isWindow = true
             self.isSession = false
             
@@ -413,30 +438,30 @@ class APIJsons {
             }
         }
         
-        func GetLessonTime() -> String
-        {
-            switch self.Number
-            {
-            case 1...7:
-                return "\(8+self.Number-1):15"
-            case 8:
-                return "15:10"
-            case 9:
-                return "16:05"
-            case 10:
-                return "17:00"
-            case 11:
-                return "17:55"
-            case 12:
-                return "18:50"
-            case 13:
-                return "19:45"
-            case 14:
-                return "20:35"
-            default:
-                return ""
-            }
-        }
+//        func GetLessonTime() -> String
+//        {
+//            switch self.Number
+//            {
+//            case 1...7:
+//                return "\(8+self.Number-1):15"
+//            case 8:
+//                return "15:10"
+//            case 9:
+//                return "16:05"
+//            case 10:
+//                return "17:00"
+//            case 11:
+//                return "17:55"
+//            case 12:
+//                return "18:50"
+//            case 13:
+//                return "19:45"
+//            case 14:
+//                return "20:35"
+//            default:
+//                return ""
+//            }
+//        }
     }
     
     // MARK: - Markbook
@@ -485,11 +510,13 @@ class APIJsons {
                 let form:String
                 let hours:String
                 let credits:String
-                let total:Int
+                let total:Double
                 let ects:String
                 let mark:String
                 let date:String
                 let teacher:String
+                
+                let formatted_total:String
                 
                 init (_ json:[String:AnyObject])
                 {
@@ -497,7 +524,9 @@ class APIJsons {
                     form = json["form"] as! String
                     hours = json["hours"] as! String
                     credits = json["credits"] as! String
-                    total = json["total"] as! Int
+                    let _total = json["total"] as! NSNumber
+                    total = _total as! Double
+                    
                     ects = json["ects"] as! String
                     //mark = json["mark"] as! String
                     let json_mark = json["mark"]// TODO: Correct usage of mark
@@ -510,6 +539,14 @@ class APIJsons {
                     }
                     date = json["date"] as! String
                     teacher = json["teacher"] as! String
+                    
+                    let formatter = NumberFormatter()
+                    formatter.minimumFractionDigits = 0
+                    formatter.maximumFractionDigits = 2
+                    formatter.numberStyle = .decimal
+                    formatter.decimalSeparator = "."
+                    
+                    formatted_total = formatter.string(from: _total) ?? String(_total as! Double)
                 }
             }
             

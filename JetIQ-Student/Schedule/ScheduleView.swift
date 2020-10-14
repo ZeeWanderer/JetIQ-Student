@@ -69,6 +69,8 @@ struct ScheduleView: View
     @EnvironmentObject var userData:UserData
     @ObservedObject private var schedule_ = ScheduleModel()
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View
     {
         VStack
@@ -94,8 +96,12 @@ struct ScheduleView: View
                             {
                                 lesson in
                                 LessonView(lesson: lesson)
+                                    .contextMenu {
+                                        LessonContextMenu(lesson: lesson)
+                                    }
+                                    .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
                             }
-                        }
+                        }.listRowInsets(EdgeInsets())
                     }
                 }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
                 .listStyle(PlainListStyle())

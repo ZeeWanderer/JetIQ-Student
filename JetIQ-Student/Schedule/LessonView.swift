@@ -8,6 +8,37 @@
 
 import SwiftUI
 
+struct LessonContextMenu: View
+{
+    let lesson: APIJsons.Lesson
+    
+    private func open_url(_ str: String)
+    {
+        if let url = URL(string: str)
+        {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    var body: some View
+    {
+        HStack
+        {
+            if !lesson.link.isEmpty
+            {
+                Button(action: {open_url(lesson.link)})
+                {
+                    Text("Open Online Link")
+                }
+            }
+            else
+            {
+                Text("No Actions available.")
+            }
+        }
+    }
+}
+
 struct LessonView :View
 {
     let lesson: APIJsons.Lesson
@@ -20,6 +51,9 @@ struct LessonView :View
         {
             if (!lesson.isWindow)
             {
+
+                RoundedRectangle(cornerRadius: 8).fill(lesson.link.isEmpty ? Color.clear : Color.green).frame(width: 5).padding(.vertical, 5)
+                
                 VStack
                 {
                     ZStack
@@ -44,7 +78,7 @@ struct LessonView :View
                 {
                     if lesson.AddInfo.isEmpty
                     {
-                        Text(lesson.GetLessonTime()).multilineTextAlignment(.trailing)
+                        Text(lesson.start_time).multilineTextAlignment(.trailing)
                     }
                     else
                     {
@@ -70,7 +104,7 @@ struct LessonView :View
                 Text("Window")
                 
             }
-        }.listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
+        }.padding(.trailing, 10).padding(.vertical, 2)
     }
 }
 

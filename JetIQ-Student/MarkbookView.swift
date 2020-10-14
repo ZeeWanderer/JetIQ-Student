@@ -110,7 +110,7 @@ struct SubjectDetailView :View
         List
         {
             SubjectItemRow(name:"Форма:", value: subject.form)
-            SubjectItemRow(name:"Бали:", value: String(subject.total))
+            SubjectItemRow(name:"Бали:", value: subject.formatted_total)
             SubjectItemRow(name:"Оцінка:", value: subject.mark)
             SubjectItemRow(name:"ECTS:", value: subject.ects)
             SubjectItemRow(name:"Кредити:", value: subject.credits)
