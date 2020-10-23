@@ -239,10 +239,9 @@ class APIJsons {
         let week_num:Int
         let weeks_shift:Int
         var Lessons:[Lesson] = []
-        //let user_data: UserData
+        
         init(day:[String:AnyObject], idx:Int, user_data: UserData)
         {
-            //self.user_data = user_data
             self.idx = idx
             self.date = (day["date"] as! String)
             self.dow = (day["dow"] as! String)
@@ -251,9 +250,8 @@ class APIJsons {
             
             var lessonKeys = Array((day).keys)
             lessonKeys.removeAll(where: {$0.count > 2})
-            lessonKeys.sort{$0.compare($1, options: .numeric) == .orderedDescending}
-            //let min = Int(lessonKeys[lessonKeys.count-1])!
-            let t = user_data.subgroup
+            lessonKeys.sort{$0.compare($1, options: .numeric) == .orderedAscending}
+            
             for lessonKey in lessonKeys // Window Detection
             {
                 if let lesson = (day[lessonKey] as? [String:AnyObject]), lesson.keys.contains("") || lesson.keys.contains(user_data.subgroup!)
@@ -266,9 +264,9 @@ class APIJsons {
                 }
             }
             
-            lessonKeys = lessonKeys.reversed()
+            //lessonKeys = lessonKeys.reversed()
             
-            for lessonKey in lessonKeys // Window Detection
+            for lessonKey in lessonKeys.reversed() // Window Detection
             {
                 if let lesson = (day[lessonKey] as? [String:AnyObject]), lesson.keys.contains("") || lesson.keys.contains(user_data.subgroup!)
                 {
@@ -276,7 +274,7 @@ class APIJsons {
                 }
                 else
                 {
-                    lessonKeys.removeFirst()
+                    lessonKeys.removeLast()
                 }
             }
             
@@ -313,12 +311,8 @@ class APIJsons {
                     }
                 }
                 Lessons.append(Lesson(lesson: ((day[lessonKey] as! [String:AnyObject])[key] as! [String : AnyObject])))
-                
             }
-            
-            //Lessons.append(Lesson(leastLesson: min, rows: Intmax-min, idx: <#T##Int#>, isWindow: <#T##Bool#>))
         }
-        
     }
     
     struct Lesson : Codable, Identifiable
@@ -437,31 +431,6 @@ class APIJsons {
                 }
             }
         }
-        
-//        func GetLessonTime() -> String
-//        {
-//            switch self.Number
-//            {
-//            case 1...7:
-//                return "\(8+self.Number-1):15"
-//            case 8:
-//                return "15:10"
-//            case 9:
-//                return "16:05"
-//            case 10:
-//                return "17:00"
-//            case 11:
-//                return "17:55"
-//            case 12:
-//                return "18:50"
-//            case 13:
-//                return "19:45"
-//            case 14:
-//                return "20:35"
-//            default:
-//                return ""
-//            }
-//        }
     }
     
     // MARK: - Markbook
@@ -510,13 +479,11 @@ class APIJsons {
                 let form:String
                 let hours:String
                 let credits:String
-                let total:Double
+                let total:String
                 let ects:String
                 let mark:String
                 let date:String
                 let teacher:String
-                
-                let formatted_total:String
                 
                 init (_ json:[String:AnyObject])
                 {
@@ -525,10 +492,9 @@ class APIJsons {
                     hours = json["hours"] as! String
                     credits = json["credits"] as! String
                     let _total = json["total"] as! NSNumber
-                    total = _total as! Double
                     
                     ects = json["ects"] as! String
-                    //mark = json["mark"] as! String
+                    
                     let json_mark = json["mark"]// TODO: Correct usage of mark
                     switch json_mark
                     {
@@ -546,13 +512,9 @@ class APIJsons {
                     formatter.numberStyle = .decimal
                     formatter.decimalSeparator = "."
                     
-                    formatted_total = formatter.string(from: _total) ?? String(_total as! Double)
+                    total = formatter.string(from: _total) ?? String(_total as! Double)
                 }
             }
-            
         }
-        
     }
-    
-    
 }

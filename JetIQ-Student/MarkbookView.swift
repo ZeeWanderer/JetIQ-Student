@@ -7,9 +7,12 @@
 //
 
 import SwiftUI
+import SwiftUIPullToRefresh
 
 class MarkbookModel: ObservableObject {
     @Published var markbook: APIJsons.Markbook? = nil
+    
+    @Published var isLoading = false
     
     var isAvailable:Bool
     {
@@ -31,13 +34,18 @@ class MarkbookModel: ObservableObject {
     //                netSession_ = URLSession(configuration: configuration)
     //    }
     
-    func fetchShedule(_ userData:UserData)
+    func fetch(_ userData:UserData)
     {
+        isLoading = true
         let url:URL? = URL(string: "https://iq.vntu.edu.ua/b04213/curriculum/api.php?markbook=1")!
         
         let dataTask = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             guard let data = data else
             {
+                DispatchQueue.main.async
+                {
+                    self.isLoading = false
+                }
                 return
             }
             let jsonString = String(data: data, encoding: .utf8)
@@ -51,11 +59,16 @@ class MarkbookModel: ObservableObject {
                 DispatchQueue.main.async
                 {
                     self.markbook = Markbook_
+                    self.isLoading = false
                 }
                 
             }
             catch _
             {
+                DispatchQueue.main.async
+                {
+                    self.isLoading = false
+                }
                 return
             }
             
@@ -70,7 +83,14 @@ class MarkbookModel: ObservableObject {
             
             let login_data_task = URLSession.shared.dataTask(with:URL(string:login_string)!)
             {(data, response, error) in
-                guard data != nil && error == nil else { return }
+                guard data != nil && error == nil else
+                {
+                    DispatchQueue.main.async
+                    {
+                        self.isLoading = false
+                    }
+                    return
+                }
                 //let jsonString = String(data: data!, encoding: .utf8)
                 dataTask.resume()
             }
@@ -110,7 +130,7 @@ struct SubjectDetailView :View
         List
         {
             SubjectItemRow(name:"Форма:", value: subject.form)
-            SubjectItemRow(name:"Бали:", value: subject.formatted_total)
+            SubjectItemRow(name:"Бали:", value: subject.total)
             SubjectItemRow(name:"Оцінка:", value: subject.mark)
             SubjectItemRow(name:"ECTS:", value: subject.ects)
             SubjectItemRow(name:"Кредити:", value: subject.credits)
@@ -162,14 +182,16 @@ struct MarkbookView: View
             {
                 Text("Loading...")
                     .onAppear (perform: {
-                        //.schedule_.userData = self.userData
-                        self.markbook_.fetchShedule(self.userData)
+                        self.markbook_.fetch(self.userData)
                     })
             }
-            else if markbook_.markbook!.Semesters.isEmpty
-            {
-                Text("No Data")
-            }
+            //            else if markbook_.markbook!.Semesters.isEmpty
+            //            {
+            //                Text("No Data")
+            //                    .background(SwiftUIPullToRefresh(action: {
+            //                        self.markbook_.fetch(userData)
+            //                    }, isShowing: self.$markbook_.isLoading))
+            //            }
             else
             {
                 List
@@ -188,7 +210,10 @@ struct MarkbookView: View
                         }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
                 }.navigationBarTitle(Text("Markbook"), displayMode: .inline)
-                //.environment(\.defaultMinListRowHeight, 1)
+                .background(SwiftUIPullToRefresh(action: {
+                    self.markbook_.fetch(userData)
+                }, isShowing: self.$markbook_.isLoading))
+                .overlay(markbook_.markbook!.Semesters.isEmpty ? Text("No Data\nPull to Reresh").multilineTextAlignment(.center) : nil)
             }
         }
     }

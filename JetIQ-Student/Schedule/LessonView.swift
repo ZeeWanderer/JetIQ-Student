@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+import MobileCoreServices
 struct LessonContextMenu: View
 {
     let lesson: APIJsons.Lesson
@@ -20,6 +21,11 @@ struct LessonContextMenu: View
         }
     }
     
+    private func copy_url(_ str: String)
+    {
+        UIPasteboard.general.setValue(str, forPasteboardType: kUTTypeURL as String)
+    }
+    
     var body: some View
     {
         HStack
@@ -28,7 +34,11 @@ struct LessonContextMenu: View
             {
                 Button(action: {open_url(lesson.link)})
                 {
-                    Text("Open Online Link")
+                    Text("Open Link")
+                }
+                Button(action: {copy_url(lesson.link)})
+                {
+                    Text("Copy Link")
                 }
             }
             else
@@ -51,7 +61,6 @@ struct LessonView :View
         {
             if (!lesson.isWindow)
             {
-
                 RoundedRectangle(cornerRadius: 8).fill(lesson.link.isEmpty ? Color.clear : Color.green).frame(width: 5).padding(.vertical, 5)
                 
                 VStack
