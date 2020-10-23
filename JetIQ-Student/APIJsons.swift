@@ -42,8 +42,10 @@ class APIJsons {
             
             for SubjKey in SubjKeys
             {
-                let subj = json[SubjKey] as![String:AnyObject]
-                SemSet.insert(subj["sem"] as! String)
+                if let subj = json[SubjKey] as? [String:AnyObject] // TODO: investigate
+                {
+                    SemSet.insert(subj["sem"] as! String)
+                }
             }
             
             let SemKeys = SemSet.sorted{$0.compare($1, options: .numeric) == .orderedDescending}
@@ -114,16 +116,16 @@ class APIJsons {
     class SL_detailItem
     {
         
-        let total:Int
-        let total_prev:Int
+        let total:String
+        let total_prev:String
         let ects:String
         let module_1:SL_module?
         let module_2:SL_module?
         init(_ json:[String:AnyObject])
         {
-            self.total = json["total"] as! Int
-            self.total_prev = json["total_prev"] as! Int
-            self.ects = json["ects"] as! String
+            self.total = (json["total"] as? NSNumber)?.stringValue ?? ""
+            self.total_prev = (json["total_prev"] as? NSNumber)?.stringValue ?? ""
+            self.ects = json["ects"] as? String ?? ""
             
             var keys = Array(json.keys).sorted{$0.compare($1, options: .numeric) == .orderedDescending}
             
@@ -173,11 +175,11 @@ class APIJsons {
         var id = UUID()
         
         let legeng:String
-        let points:Int
+        let points:String
         init(_ json:[String:AnyObject])
         {
-            self.legeng = json["legend"] as! String
-            self.points = json["points"] as! Int
+            self.legeng = json["legend"] as? String ?? "" // TODO: investigate
+            self.points = (json["points"] as? NSNumber )?.stringValue ?? "" // TODO: investigate
         }
     }
     
@@ -211,6 +213,12 @@ class APIJsons {
             for dayKey in dayKeys
             {
                 let day = sched[dayKey] as! [String:AnyObject]
+                
+                if !day.keys.contains("date") // TODO: investigate
+                {
+                    continue
+                }
+                
                 let sect_date = formatter.date(from: (day["date"] as! String)+year)!
                 
                 if !(day.keys.allSatisfy{$0.count>2}) && sect_date >= date // TODO: use date-time of the end of the last lesson of the day

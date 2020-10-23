@@ -89,7 +89,7 @@ struct SuccessLogDetailModuleSectionView: View
                 {
                     Text(category.legeng)
                     Spacer()
-                    Text(String(category.points))
+                    Text(category.points)
                 }
             }
             HStack
