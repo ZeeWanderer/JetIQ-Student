@@ -35,7 +35,7 @@ struct LoginView: View
     private let login_error_no_internet = "No internet connection"
     private let login_error_no_data = "API sent no data in response"
     private let login_error_recv_failed = "Revieve failed"
-    private let login_error_json_parse_failed = "Session json parcing failed"
+    private let login_error_json_parse_failed = "API returnd null. Ensure JetIQ is online."
     private let login_error_unknown_error = "Unknown error"
     
     var login_bttn_color:Color
@@ -152,7 +152,7 @@ struct LoginView: View
             {
                 let root = try JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
                 
-                if root.id != nil && !(root.session?.starts(with: "wrong") ?? true)
+                if root.id != nil && !root.session.starts(with: "wrong")
                 {
                     
                     DispatchQueue.main.async { [self] in

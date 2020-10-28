@@ -15,7 +15,7 @@ class APIJsons {
     
     class LoginResponse: Codable
     {
-        var session:String? = nil
+        var session:String
         var id:String? = nil
         var u_name:String? = nil
         var gr_id:String? = nil
