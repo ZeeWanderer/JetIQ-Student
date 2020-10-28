@@ -152,7 +152,7 @@ struct LoginView: View
             {
                 let root = try JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
                 
-                if root.id != nil && !(root.session?.starts(with: "wrong") ?? false)
+                if root.id != nil && !(root.session?.starts(with: "wrong") ?? true)
                 {
                     
                     DispatchQueue.main.async { [self] in
