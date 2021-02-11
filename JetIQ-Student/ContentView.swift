@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View
 {
     @EnvironmentObject var userData:UserData
-    @EnvironmentObject var archState:ArchState
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = true
     
     @State private var selection = 0
     
@@ -19,7 +19,7 @@ struct ContentView: View
     {
         Group
         {
-            if !archState.isLoggedIn
+            if !isLoggedIn
             {
                 LoginView()
                     .transition(.slide)
@@ -100,6 +100,6 @@ struct ContentView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        ContentView().environmentObject(UserData(subgroup: "2")).environmentObject(ArchState(login: true))
+        ContentView().environmentObject(UserData(subgroup: "2"))
     }
 }

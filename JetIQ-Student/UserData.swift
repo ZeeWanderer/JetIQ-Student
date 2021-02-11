@@ -64,6 +64,19 @@ class UserData: Codable, ObservableObject
         self.subgroup = nil
         self.u_name = nil
     }
+    
+    func update_from_login(_ login_r: APIJsons.LoginResponse, _ login: String, _ password:String)
+    {
+        self.login = login
+        self.password = password
+        
+        
+        self.group_id = login_r.gr_id
+        self.f_id = login_r.f_id
+        self.u_name = login_r.u_name
+        
+        saveUserData(userData: self)
+    }
 }
 
 func saveUserData(userData:UserData)

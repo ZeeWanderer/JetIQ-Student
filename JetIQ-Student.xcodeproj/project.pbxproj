@@ -24,6 +24,7 @@
 		5063689F2395286800067291 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5063689E2395286800067291 /* Assets.xcassets */; };
 		506368A22395286800067291 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506368A12395286800067291 /* Preview Assets.xcassets */; };
 		506368A52395286800067291 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 506368A32395286800067291 /* LaunchScreen.storyboard */; };
+		509576D225D54CE2004E649F /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509576D125D54CE2004E649F /* Networking.swift */; };
 		5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5096472223C612D90000758C /* SubgroupSelectionView.swift */; };
 		509F61D32526546A00C8FF71 /* SuccessLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */; };
 		50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */; };
@@ -49,6 +50,7 @@
 		506368A12395286800067291 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		506368A42395286800067291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		506368A62395286800067291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		509576D125D54CE2004E649F /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		5096472223C612D90000758C /* SubgroupSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgroupSelectionView.swift; sourceTree = "<group>"; };
 		509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessLogDetailView.swift; sourceTree = "<group>"; };
 		50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetIQStudentApp.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				506368A62395286800067291 /* Info.plist */,
 				506368992395286400067291 /* JetIQ_Student.xcdatamodeld */,
 				506368A02395286800067291 /* Preview Content */,
+				509576D125D54CE2004E649F /* Networking.swift */,
 			);
 			path = "JetIQ-Student";
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			files = (
 				5063689B2395286400067291 /* JetIQ_Student.xcdatamodeld in Sources */,
 				505E893823953B8100694E0F /* LoginView.swift in Sources */,
+				509576D225D54CE2004E649F /* Networking.swift in Sources */,
 				505E894023954B7000694E0F /* ArchState.swift in Sources */,
 				505E893C2395423000694E0F /* UserData.swift in Sources */,
 				501C6E962524EC4400AB6A2E /* LessonView.swift in Sources */,

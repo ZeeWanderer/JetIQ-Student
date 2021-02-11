@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-class ArchState: ObservableObject{
-    
-    @Published var isLoggedIn = false
-    
-    init(login: Bool)
-    {
-        isLoggedIn = login
-    }
-}
+//class ArchState: ObservableObject{
+//    
+//    @Published var isLoggedIn = false
+//    
+//    init(login: Bool)
+//    {
+//        isLoggedIn = login
+//    }
+//}
 

@@ -17,8 +17,8 @@ public func print(_ items: Any..., separator: String = " ", terminator: String =
 @main
 struct JetIQStudentApp: App {
     let userData : UserData
-    let archState : ArchState
-    let localStorage: LocalStorage
+    
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     
     init() {
         
@@ -26,9 +26,9 @@ struct JetIQStudentApp: App {
         URLSession.shared.configuration.httpShouldSetCookies = true
         URLSession.shared.configuration.waitsForConnectivity = true
         
-        userData = loadUserData()
-        archState = ArchState(login: userData.password != nil)
-        localStorage = LocalStorage()
+        let userData_ = loadUserData()
+        userData = userData_
+        isLoggedIn = userData_.password != nil
     }
     var body: some Scene
     {
@@ -36,8 +36,7 @@ struct JetIQStudentApp: App {
         {
             ContentView()
                 .environmentObject(userData)
-                .environmentObject(archState)
-                .environmentObject(localStorage)
+                .environmentObject(LocalStorage())
         }
     }
 }

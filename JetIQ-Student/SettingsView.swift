@@ -14,7 +14,7 @@ struct SettingsView: View
     
     @State var selectedSubgroup:String
     @EnvironmentObject var userData:UserData
-    @EnvironmentObject var archState:ArchState
+    @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     
     let subgroups = ["None", "1", "2", "3", "4", "5"]
     
@@ -62,7 +62,7 @@ struct SettingsView: View
     }
     nonmutating func saveSettings()
     {
-        if archState.isLoggedIn
+        if isLoggedIn
         {
             self.setSubgroup()
         }
@@ -86,7 +86,7 @@ struct SettingsView: View
     {
         //DispatchQueue.main.async { [self] in
         self.userData.clearUserData()
-        self.archState.isLoggedIn = false
+        isLoggedIn = false
         //}
         
     }
