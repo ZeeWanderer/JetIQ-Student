@@ -69,6 +69,7 @@ struct ScheduleView: View
 {
     @EnvironmentObject var userData:UserData
     @ObservedObject private var schedule_ = ScheduleViewModel()
+    @AppStorage("numberOfDaysScheduleShown") var schedule_days_count:String = "10"
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -88,7 +89,7 @@ struct ScheduleView: View
             {
                 List
                 {
-                    ForEach(schedule_.daysFiltered(userData.subgroup!))
+                    ForEach(schedule_.daysFiltered(userData.subgroup!, schedule_days_count))
                     { day in
                         Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
                         {

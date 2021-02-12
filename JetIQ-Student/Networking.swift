@@ -260,10 +260,12 @@ class ScheduleViewModel: ObservableObject {
 
 extension ScheduleViewModel
 {
-    func daysFiltered(_ subgroup: String) ->[APIJsons.Test_Day.Test_DayDataFlat]
+    func daysFiltered(_ subgroup: String, _ days_shown_str:String) ->[APIJsons.Test_Day.Test_DayDataFlat]
     {
         print("daysFiltered")
-        return schedule_r!.days.compactMap{ APIJsons.Test_Day.Test_DayDataFlat($0, subgroup)}
+        //TODO: setting to limit number of schedule days shown
+        //return Array(schedule_r!.days.compactMap{ APIJsons.Test_Day.Test_DayDataFlat($0, subgroup)}[0...7*3-1])
+        let arr = schedule_r!.days.compactMap{ APIJsons.Test_Day.Test_DayDataFlat($0, subgroup)}
             .filter{
                 guard let last_lesson = $0.Lessons.last
                 else
@@ -289,6 +291,15 @@ extension ScheduleViewModel
                 
                 return sect_date >= date_now
             }
+        if days_shown_str != "All", let days_count = Int(days_shown_str)
+        {
+            return Array(arr[0...days_count-1])
+        }
+        else
+        {
+            return arr
+        }
+        
     }
     
     func validateResponce(_ r:APIJsons.Test_Schedule) -> Bool
