@@ -27,8 +27,8 @@ class APIJsons {
         var f_id:String? = nil
         
         public enum CodingKeys : String, CodingKey {
-                case session, id, u_name, gr_id, gr_name, cource_num, stud_id, spec_id, f_id
-            }
+            case session, id, u_name, gr_id, gr_name, cource_num, stud_id, spec_id, f_id
+        }
     }
     
     // MARK: - SUCCESS_LOG
@@ -118,7 +118,6 @@ class APIJsons {
     // MARK: SUCCESS_LOG_detail
     class SL_detailItem
     {
-        
         let total:String
         let total_prev:String
         let ects:String
@@ -187,6 +186,343 @@ class APIJsons {
     }
     
     // MARK: - SCHEDULE
+    
+    class Test_Schedule: Decodable
+    {
+        var sectionNumber: Int {return days.count }
+        let days:[Test_Day]
+        
+        enum SchedWrapperKey: CodingKey
+        {
+            case sched
+        }
+        
+        private struct DynamicCodingKeys: CodingKey
+        {
+            
+            // Use for string-keyed dictionary
+            var stringValue: String
+            init?(stringValue: String) {
+                self.stringValue = stringValue
+                self.intValue = Int(stringValue)
+            }
+            
+            // Use for integer-keyed dictionary
+            var intValue: Int?
+            init?(intValue: Int) {
+                // We are not using this, thus just return nil
+                self.intValue = intValue
+                self.stringValue = String(intValue)
+            }
+        }
+        
+        required init(from decoder: Decoder) throws
+        {
+            let sched_wrapper = try decoder.container(keyedBy: SchedWrapperKey.self)
+            let schedule = try sched_wrapper.nestedContainer(keyedBy: DynamicCodingKeys.self, forKey: .sched)
+            let sorted_day_keys = schedule.allKeys.sorted{
+                $0.intValue! < $1.intValue!
+            }
+            
+            var days = [Test_Day]()
+            days.reserveCapacity(sorted_day_keys.count)
+            
+            for key in sorted_day_keys {
+                print(key.stringValue)
+                let day = try schedule.decode(Test_Day.self, forKey: key)
+                days.append(day)
+            }
+            
+            self.days = days
+        }
+    }
+    
+    class Test_Day: Decodable, Identifiable
+    {
+        class Test_DayDataFlat: Identifiable
+        {
+            let id:UUID
+            
+            let idx:Int = 0
+            
+            let date:String
+            let dow:String
+            let week_num:Int
+            let weeks_shift:Int
+            let Lessons:[Test_Lesson]
+            
+            init(_ day: Test_Day, _ subgroup: String)
+            {
+                id = day.id
+                date = day.date
+                dow = day.dow
+                week_num = day.week_num
+                weeks_shift = day.weeks_shift
+                
+                Lessons = day.lessonsFiltered(subgroup)
+            }
+        }
+        
+        func lessonsFiltered(_ subgroup: String) -> [APIJsons.Test_Lesson]
+        {
+            print("lessonsFiltered")
+            let retval = self.Lessons.reduce([APIJsons.Test_Lesson]()) { (array, dict) in
+                if let lesson = dict[""]
+                {
+                    return array + [lesson]
+                }
+                else
+                if let lesson = dict[subgroup]
+                {
+                    return array + [lesson]
+                }
+                return array
+            }
+            return retval
+        }
+        
+        let id = UUID()
+        
+        let idx:Int = 0
+        
+        let date:String
+        let dow:String
+        let week_num:Int
+        let weeks_shift:Int
+        let Lessons:[[String:Test_Lesson]]
+        
+        private enum CodinngKeys: CodingKey
+        {
+            case date, dow, week_num, weeks_shift
+        }
+        
+        private struct DynamicCodingKeys: CodingKey
+        {
+            
+            // Use for string-keyed dictionary
+            var stringValue: String
+            init?(stringValue: String) {
+                guard let dint = Int(stringValue)
+                else
+                {
+                    return nil
+                }
+                self.stringValue = stringValue
+                self.intValue = dint
+            }
+            
+            // Use for integer-keyed dictionary
+            var intValue: Int?
+            init?(intValue: Int) {
+                // We are not using this, thus just return nil
+                self.intValue = intValue
+                self.stringValue = String(intValue)
+            }
+        }
+        
+        private struct DynamicCodingSubgroupKeys: CodingKey
+        {
+            
+            // Use for string-keyed dictionary
+            var stringValue: String
+            init?(stringValue: String) {
+                self.stringValue = stringValue
+                self.intValue = Int(stringValue)
+            }
+            
+            // Use for integer-keyed dictionary
+            var intValue: Int?
+            init?(intValue: Int) {
+                // We are not using this, thus just return nil
+                self.intValue = intValue
+                self.stringValue = String(intValue)
+            }
+        }
+        
+        required init(from decoder: Decoder) throws
+        {
+            let static_container = try decoder.container(keyedBy: CodinngKeys.self)
+            let dynamic_container = try decoder.container(keyedBy: DynamicCodingKeys.self)
+            
+            date = try static_container.decode(type(of: date), forKey: .date)
+            dow = try static_container.decode(type(of: dow), forKey: .dow)
+            week_num = try static_container.decode(type(of: week_num), forKey: .week_num)
+            weeks_shift = try static_container.decode(type(of: weeks_shift), forKey: .weeks_shift)
+            
+            print(static_container.allKeys)
+            print(dynamic_container.allKeys)
+            
+            let sorted_lesson_keys = dynamic_container.allKeys.sorted{
+                $0.intValue! < $1.intValue!
+            }
+            
+            var lessons = [[String:Test_Lesson]]()
+            if sorted_lesson_keys.count != 0
+            {
+                lessons.reserveCapacity(sorted_lesson_keys.last!.intValue! - sorted_lesson_keys.first!.intValue! + 1 )
+                
+                for key in sorted_lesson_keys
+                {
+                    let lesson_container = try dynamic_container.nestedContainer(keyedBy: DynamicCodingSubgroupKeys.self, forKey: key)
+                    var sub_lessons = [String:Test_Lesson] ()
+                    for s_key in lesson_container.allKeys
+                    {
+                        let sublesson = try lesson_container.decode(Test_Lesson.self, forKey: s_key)
+                        sub_lessons[s_key.stringValue] = sublesson
+                    }
+                    lessons.append(sub_lessons)
+                }
+            }
+            
+            self.Lessons = lessons
+            
+        }
+    }
+    
+    //    class Test_Lesson: Decodable
+    //    {
+    //        var id = UUID()
+    //
+    //        let sub_lessons: [String:Test_LessonInd]
+    //
+    //        private struct DynamicCodingKeys: CodingKey
+    //        {
+    //
+    //            // Use for string-keyed dictionary
+    //            var stringValue: String
+    //            init?(stringValue: String) {
+    //                self.stringValue = stringValue
+    //                self.intValue = Int(stringValue)
+    //            }
+    //
+    //            // Use for integer-keyed dictionary
+    //            var intValue: Int?
+    //            init?(intValue: Int) {
+    //                // We are not using this, thus just return nil
+    //                self.intValue = intValue
+    //                self.stringValue = String(intValue)
+    //            }
+    //        }
+    //
+    //        required init(from decoder: Decoder) throws
+    //        {
+    //            let container = try decoder.container(keyedBy: DynamicCodingKeys.self)
+    //
+    //            var sub_lessons = [String:Test_LessonInd]()
+    //
+    //            for key in container.allKeys
+    //            {
+    //                let sublesson = try container.decode(Test_LessonInd.self, forKey: key)
+    //                sub_lessons[key.stringValue] = sublesson
+    //            }
+    //
+    //            self.sub_lessons = sub_lessons
+    //        }
+    //    }
+    
+    class Test_Lesson: Decodable, Identifiable
+    {
+        let id = UUID()
+        
+        let Auditory:String
+        let SbType:String
+        let Subject:String
+        let Number:Int
+        let Comment:String
+        let AddInfo:String
+        let Teacher:String
+        
+        let start_time:String
+        let end_time:String
+        
+        let link:String?
+        
+        let isWindow:Bool // TODO: remove later
+        let isSession:Bool
+        
+        private enum CodingKeys: String, CodingKey
+        {
+            case Auditory = "aud", SbType = "type", Subject = "subject", Number = "num_lesson", Comment = "comment", AddInfo = "add_info", Teacher = "t_name", start_time = "l_beg", end_time = "l_end", link = "meet_url"
+        }
+        
+        required init(from decoder: Decoder) throws
+        {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            Auditory = try container.decode(type(of: Auditory), forKey: .Auditory)
+            SbType = try container.decode(type(of: SbType), forKey: .SbType)
+            Subject = try container.decode(type(of: Subject), forKey: .Subject)
+            Number = try container.decode(type(of: Number), forKey: .Number)
+            Comment = try container.decode(type(of: Comment), forKey: .Comment)
+            AddInfo = try container.decode(type(of: AddInfo), forKey: .AddInfo)
+            Teacher = try container.decode(type(of: Teacher), forKey: .Teacher)
+            link = try container.decodeIfPresent(String.self, forKey: .link)
+            
+            let start_time_ = try container.decode(type(of: start_time), forKey: .start_time)
+            let end_time_ = try container.decode(type(of: end_time), forKey: .end_time)
+            
+            start_time = start_time_.split(separator: ",")[0..<2].joined(separator: ":")
+            end_time = end_time_.split(separator: ",")[0..<2].joined(separator: ":")
+            
+            self.isWindow = false
+            self.isSession = !self.AddInfo.isEmpty
+        }
+        
+        func GetLessonColor(colorScheme:ColorScheme = .light)->Color
+        {
+            if(self.isWindow)
+            {
+                return Color.gray
+            }
+            else
+            {
+                if colorScheme == .light
+                {
+                    switch self.SbType
+                    {
+                    case "ЛК":
+                        return Color(#colorLiteral(red: 1, green: 0.8869055742, blue: 0.5970449066, alpha: 1))
+                    case "ПЗ":
+                        return Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))
+                    case "ЛР":
+                        return Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))
+                    case "ДЗ":
+                        return Color(#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
+                    case "Зал":
+                        return Color(#colorLiteral(red: 1, green: 0.8472312441, blue: 0.4537079421, alpha: 1))
+                    case "Конс":
+                        return Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1))
+                    case "Ісп":
+                        return Color(#colorLiteral(red: 0.961265689, green: 0.2604754811, blue: 0.233939329, alpha: 1))
+                    default:
+                        return Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+                    }
+                }
+                else
+                {
+                    switch self.SbType
+                    {
+                    case "ЛК":
+                        return Color(#colorLiteral(red: 0.4826300761, green: 0.4317500114, blue: 0.2918904648, alpha: 1))
+                    case "ПЗ":
+                        return Color(#colorLiteral(red: 0.396834647, green: 0.4902561156, blue: 0.3309897689, alpha: 1))
+                    case "ЛР":
+                        return Color(#colorLiteral(red: 0.2319329672, green: 0.4154234426, blue: 0.484382233, alpha: 1))
+                    case "ДЗ":
+                        return Color(#colorLiteral(red: 0.3440248997, green: 0.4834080708, blue: 0.2499767521, alpha: 1))
+                    case "Зал":
+                        return Color(#colorLiteral(red: 0.4924651015, green: 0.4193497898, blue: 0.2260875566, alpha: 1))
+                    case "Конс":
+                        return Color(#colorLiteral(red: 0.1162179505, green: 0.3397114481, blue: 0.4914304351, alpha: 1))
+                    case "Ісп":
+                        return Color(#colorLiteral(red: 0.4848310596, green: 0.1277867529, blue: 0.118707702, alpha: 1))
+                    default:
+                        return Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                    }
+                }
+            }
+        }
+    }
     
     class Schedule
     {

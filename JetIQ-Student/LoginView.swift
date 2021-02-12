@@ -23,7 +23,7 @@ struct LoginView: View
     
     @State var username:String = ""
     
-    let reachability = SCNetworkReachabilityCreateWithName(nil,"https://connectivitycheck.gstatic.com/generate_204")
+    //let reachability = SCNetworkReachabilityCreateWithName(nil,"https://connectivitycheck.gstatic.com/generate_204")
     
     @ObservedObject var viewModel = LoginViewModel()
     
