@@ -17,14 +17,33 @@ struct APIClient {
     }
     
     func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<Response<T>, Error> {
-        return URLSession.shared
+        let publisher = URLSession.shared
             .dataTaskPublisher(for: request)
-            .tryMap { result -> Response<T> in
-                let value = try JSONDecoder().decode(T.self, from: result.data)
-                return Response(value: value, response: result.response)
-            }
+            .mapError({ $0 as Error })
+            .map ({ result -> AnyPublisher<Response<T>, Error> in
+                do
+                {
+                    let value = try JSONDecoder().decode(T.self, from: result.data)
+                    return Just(Response(value: value, response: result.response))
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                catch let error as DecodingError
+                {
+                    return Fail(error: error)
+                        .eraseToAnyPublisher()
+                }
+                catch
+                {
+                    return Fail(error: error)
+                        .eraseToAnyPublisher()
+                }
+                
+            })
             .receive(on: DispatchQueue.main)
+            .switchToLatest()
             .eraseToAnyPublisher()
+        return publisher
     }
 }
 
@@ -70,7 +89,7 @@ class LoginViewModel: ObservableObject {
     private let login_error_no_internet = "No internet connection"
     private let login_error_no_data = "API sent no data in response"
     private let login_error_recv_failed = "Revieve failed"
-    private let login_error_json_parse_failed = "API returnd null. Try again."
+    private let login_error_json_parse_failed = "API retured null. Try again."
     private let login_error_unknown_error = "Unknown error"
 }
 
@@ -104,7 +123,35 @@ extension LoginViewModel
         
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         
-        cancellationToken = LoginService.request(login, password)
+        let publisher = LoginService.request(login, password)
+        cancellationToken = publisher.share()
+            .tryCatch({error -> AnyPublisher<APIJsons.LoginResponse, Error> in
+                if let derror = error as? DecodingError
+                {
+                    print(derror)
+                    switch derror
+                    {
+                    case DecodingError.valueNotFound(let value, let context):
+                        print(value)
+                        print(context)
+                        if context.codingPath.last!.stringValue == APIJsons.LoginResponse.CodingKeys.session.stringValue
+                        {
+                            return publisher
+                        }
+                        else
+                        {
+                            throw derror
+                        }
+                    default:
+                        throw derror
+                    }
+                }
+                else
+                {
+                    throw error
+                }
+            })
+            .retry(2)
             .mapError({ (error) -> Error in
                 print(error)
                 if let urlError = error as? URLError
@@ -120,11 +167,19 @@ extension LoginViewModel
                     default:
                         self.login_error_message = self.login_error_unknown_error
                     }
+                    
+                    self.isLoggedIn = false
+                    self.performingLogin = false
+                    return urlError
                 }
                 else
-                if nil != error as? DecodingError
+                if let derror = error as? DecodingError
                 {
                     self.login_error_message = self.login_error_json_parse_failed
+                    
+                    self.isLoggedIn = false
+                    self.performingLogin = false
+                    return derror
                 }
                 else
                 {

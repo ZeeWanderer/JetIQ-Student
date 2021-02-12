@@ -26,6 +26,9 @@ class APIJsons {
         var spec_id:String? = nil
         var f_id:String? = nil
         
+        public enum CodingKeys : String, CodingKey {
+                case session, id, u_name, gr_id, gr_name, cource_num, stud_id, spec_id, f_id
+            }
     }
     
     // MARK: - SUCCESS_LOG

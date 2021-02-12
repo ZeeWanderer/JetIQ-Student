@@ -102,76 +102,6 @@ struct LoginView: View
         password = password.trimmingCharacters(in: .whitespacesAndNewlines)
         
         viewModel.getLogin(username, password, userData)
-        
-        //        URLSession.shared.dataTask(with: URL(string: "\(Defaults.API_BASE)?login=\(username)&pwd=\(password)")!) { [self] (data, _, error) in
-        //            if let error = error
-        //            {
-        //                DispatchQueue.main.async
-        //                {
-        //                    print(error)
-        //                    self.login_error_message = self.login_error_no_internet
-        //                    self.b_error_on_login = true
-        //                    self.performingLogin = false
-        //                }
-        //                return
-        //            }
-        //
-        //            guard let data = data else
-        //            {
-        //                DispatchQueue.main.async
-        //                {
-        //                    self.login_error_message = self.login_error_no_data
-        //                    self.b_error_on_login = true
-        //                    self.performingLogin = false
-        //                }
-        //                return
-        //            }
-        //            do
-        //            {
-        //                let root = try JSONDecoder().decode(APIJsons.LoginResponse.self, from: data)
-        //
-        //                if root.id != nil && !root.session.starts(with: "wrong")
-        //                {
-        //
-        //                    DispatchQueue.main.async { [self] in
-        //                       self.userData.password = self.password
-        //                        self.userData.login = self.username
-        //
-        //                        self.userData.group_id = root.gr_id
-        //                        self.userData.f_id = root.f_id
-        //                        self.userData.u_name = root.u_name
-        //
-        //                        saveUserData(userData: self.userData)
-        //
-        //                        self.b_error_on_login = false
-        //                        self.performingLogin = false
-        //                        withAnimation
-        //                        {
-        //                            self.archState.isLoggedIn = true
-        //                        }
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    DispatchQueue.main.async
-        //                    {
-        //                        self.login_error_message = self.login_error_wrong_login
-        //                        self.b_error_on_login = true
-        //                        self.performingLogin = false
-        //                    }
-        //                    return
-        //                }
-        //            }
-        //            catch _
-        //            {
-        //                DispatchQueue.main.async
-        //                {
-        //                    self.login_error_message = self.login_error_json_parse_failed
-        //                    self.b_error_on_login = true
-        //                    self.performingLogin = false
-        //                }
-        //            }
-        //        }.resume()
     }
 }
 
@@ -182,6 +112,34 @@ struct LoginView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        LoginView().environmentObject(UserData())
+        
+        Group
+        {
+            LoginView().environmentObject(UserData())
+                .previewDevice("iPhone SE (2nd generation)")
+                //.previewLayout(.device)
+                .previewLayout(.fixed(width: 667, height: 375)) // iPhone SE landscape size
+                .previewDisplayName("iPhone SE (2nd generation)")
+                .environment(\.locale, Locale.init(identifier: "en"))
+            
+            LoginView().environmentObject(UserData())
+                .previewDevice("iPhone SE")
+                //.previewLayout(.device)
+                .previewLayout(.fixed(width: 375, height: 667)) // iPhone SE landscape size
+                .previewDisplayName("iPhone SE")
+                .environment(\.locale, Locale.init(identifier: "en"))
+            
+            LoginView().environmentObject(UserData())
+                .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+                .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro (12.9-inch) landscape size
+                .previewDisplayName("iPad Pro (12.9-inch)")
+                .environment(\.locale, Locale.init(identifier: "en"))
+            LoginView().environmentObject(UserData())
+                
+                .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+                .previewLayout(.fixed(width: 1024, height: 1366)) // iPad Pro (12.9-inch) landscape size
+                .previewDisplayName("iPad Pro (12.9-inch)")
+                .environment(\.locale, Locale.init(identifier: "en"))
+        }
     }
 }
