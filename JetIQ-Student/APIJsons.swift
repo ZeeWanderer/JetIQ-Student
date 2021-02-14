@@ -450,7 +450,7 @@ class APIJsons {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             Auditory = try container.decode(type(of: Auditory), forKey: .Auditory)
-            SbType = try container.decode(type(of: SbType), forKey: .SbType)
+            SbType = try container.decodeIfPresent(type(of: SbType), forKey: .SbType) ?? "None"
             Subject = try container.decode(type(of: Subject), forKey: .Subject)
             Number = try container.decode(type(of: Number), forKey: .Number)
             Comment = try container.decode(type(of: Comment), forKey: .Comment)
@@ -495,7 +495,7 @@ class APIJsons {
                     case "Ісп":
                         return Color(#colorLiteral(red: 0.961265689, green: 0.2604754811, blue: 0.233939329, alpha: 1))
                     default:
-                        return Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+                        return Color(UIColor.systemBackground)
                     }
                 }
                 else
@@ -517,7 +517,7 @@ class APIJsons {
                     case "Ісп":
                         return Color(#colorLiteral(red: 0.4848310596, green: 0.1277867529, blue: 0.118707702, alpha: 1))
                     default:
-                        return Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                        return Color(UIColor.systemBackground)
                     }
                 }
             }
