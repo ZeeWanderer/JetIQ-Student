@@ -246,6 +246,7 @@ class ScheduleViewModel: ObservableObject {
     //@Published var b_error_on_login:Bool = false
     
     @Published var fetch_error_message:String = ""
+    @Published var error_string:String = ""
     
     private let login_no_error = ""
     
@@ -317,6 +318,8 @@ extension ScheduleViewModel
     
     func getSchedule(_ group_id: String, _ f_id: String)
     {
+        schedule_r = nil
+        error_string = login_no_error
         fetch_error_message = login_no_error
         
         if group_id.isEmpty || f_id.isEmpty
@@ -359,6 +362,7 @@ extension ScheduleViewModel
                 else
                 if let derror = error as? DecodingError
                 {
+                    self.error_string = "JSON Error: \(derror)"
                     self.fetch_error_message = self.login_error_json_parse_failed
                     
                     self.performingFetch = false

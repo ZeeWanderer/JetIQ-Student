@@ -79,11 +79,49 @@ struct ScheduleView: View
         {
             if schedule_.schedule_r == nil
             {
-                Text("Loading...")
-                    .onAppear (perform: {
-                        //.schedule_.userData = self.userData
+                if schedule_.fetch_error_message.isEmpty
+                {
+                    Text("Loading...")
+                        .onAppear (perform: {
+                            //.schedule_.userData = self.userData
+                            self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
+                        })
+                }
+                else
+                {
+                    List
+                    {
+                        HStack
+                        {
+                            Spacer()
+                            Text("\(schedule_.fetch_error_message)").foregroundColor(Color.red)
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                        }
+                        if !schedule_.error_string.isEmpty
+                        {
+                            HStack
+                            {
+                                Spacer()
+                                Text("\(schedule_.error_string)").foregroundColor(Color.red)
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                        }
+                        HStack
+                        {
+                            Spacer()
+                            Text("Pull to refetch").foregroundColor(Color.red)
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                        }
+                        
+                    }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
+                    .background(SwiftUIPullToRefresh(action: {
                         self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
-                    })
+                    }, isShowing: self.$schedule_.performingFetch))
+                    
+                }
             }
             else
             {
