@@ -73,6 +73,13 @@ struct ScheduleView: View
     
     @Environment(\.colorScheme) var colorScheme
     
+    @ViewBuilder func build_error_text() -> some View
+    {
+        Text("Error: \"\(schedule_.fetch_error_message)\" while updating. Pull to refresh.")
+            .foregroundColor(Color.red)
+            .multilineTextAlignment(.center)
+    }
+    
     var body: some View
     {
         VStack
@@ -81,7 +88,7 @@ struct ScheduleView: View
             {
                 if schedule_.fetch_error_message.isEmpty
                 {
-                    Text("Loading...")
+                    ProgressView("loading")
                         .onAppear (perform: {
                             //.schedule_.userData = self.userData
                             self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
@@ -91,42 +98,23 @@ struct ScheduleView: View
                 {
                     List
                     {
-                        HStack
-                        {
-                            Spacer()
-                            Text("\(schedule_.fetch_error_message)").foregroundColor(Color.red)
-                                .multilineTextAlignment(.center)
-                            Spacer()
-                        }
-                        if !schedule_.error_string.isEmpty
-                        {
-                            HStack
-                            {
-                                Spacer()
-                                Text("\(schedule_.error_string)").foregroundColor(Color.red)
-                                    .multilineTextAlignment(.center)
-                                Spacer()
-                            }
-                        }
-                        HStack
-                        {
-                            Spacer()
-                            Text("Pull to refetch").foregroundColor(Color.red)
-                                .multilineTextAlignment(.center)
-                            Spacer()
-                        }
-                        
-                    }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
+                        build_error_text()
+                    }
+                    .listStyle(PlainListStyle())
+                    .navigationViewStyle(StackNavigationViewStyle())
                     .background(SwiftUIPullToRefresh(action: {
                         self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
                     }, isShowing: self.$schedule_.performingFetch))
-                    
                 }
             }
             else
             {
                 List
                 {
+                    if !schedule_.fetch_error_message.isEmpty
+                    {
+                        build_error_text()
+                    }
                     ForEach(schedule_.daysFiltered(userData.subgroup!, schedule_days_count))
                     { day in
                         Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
@@ -142,7 +130,7 @@ struct ScheduleView: View
                             }
                         }.listRowInsets(EdgeInsets())
                     }//.drawingGroup()
-                }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
+                }
                 .listStyle(PlainListStyle())
                 .navigationViewStyle(StackNavigationViewStyle())
                 .background(SwiftUIPullToRefresh(action: {
@@ -174,7 +162,7 @@ struct ScheduleView: View
                 //                    self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
                 //                }, isShowing: self.$schedule_.performingFetch))
             }
-        }
+        }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
     }
 }
 

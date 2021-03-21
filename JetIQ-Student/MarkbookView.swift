@@ -180,7 +180,7 @@ struct MarkbookView: View
         {
             if (!markbook_.isAvailable)
             {
-                Text("Loading...")
+                ProgressView("loading")
                     .onAppear (perform: {
                         self.markbook_.fetch(self.userData)
                     })

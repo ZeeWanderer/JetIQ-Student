@@ -36,7 +36,7 @@ struct SettingsView: View
             }
             Section(header: Text("Schedule"))
             {
-                Picker(selection: $schedule_days_count, label: Text("Number of days to show in Schedule"))
+                Picker(selection: $schedule_days_count, label: Text("Number of days displayed"))
                 {
                     ForEach(schedule_day_options, id: \.self) { string in
                         Text(string)

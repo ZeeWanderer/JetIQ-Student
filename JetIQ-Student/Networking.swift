@@ -318,7 +318,7 @@ extension ScheduleViewModel
     
     func getSchedule(_ group_id: String, _ f_id: String)
     {
-        schedule_r = nil
+        //schedule_r = nil
         error_string = login_no_error
         fetch_error_message = login_no_error
         
