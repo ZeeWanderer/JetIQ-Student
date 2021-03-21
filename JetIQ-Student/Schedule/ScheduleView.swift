@@ -89,10 +89,9 @@ struct ScheduleView: View
                 if schedule_.fetch_error_message.isEmpty
                 {
                     ProgressView("loading")
-                        .onAppear (perform: {
-                            //.schedule_.userData = self.userData
+                        .onAppear {
                             self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
-                        })
+                        }
                 }
                 else
                 {
@@ -129,38 +128,13 @@ struct ScheduleView: View
                                     .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
                             }
                         }.listRowInsets(EdgeInsets())
-                    }//.drawingGroup()
+                    }
                 }
                 .listStyle(PlainListStyle())
                 .navigationViewStyle(StackNavigationViewStyle())
                 .background(SwiftUIPullToRefresh(action: {
                     self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
                 }, isShowing: self.$schedule_.performingFetch))
-                
-                //                List
-                //                {
-                //                    ForEach(schedule_.schedule!.days)
-                //                    {
-                //                        day in
-                //                        Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
-                //                        {
-                //                            ForEach(day.Lessons)
-                //                            {
-                //                                lesson in
-                //                                LessonView(lesson: lesson)
-                //                                    .contextMenu {
-                //                                        LessonContextMenu(lesson: lesson)
-                //                                    }
-                //                                    .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
-                //                            }
-                //                        }.listRowInsets(EdgeInsets())
-                //                    }
-                //                }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
-                //                .listStyle(PlainListStyle())
-                //                .navigationViewStyle(StackNavigationViewStyle())
-                //                .background(SwiftUIPullToRefresh(action: {
-                //                    self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
-                //                }, isShowing: self.$schedule_.performingFetch))
             }
         }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
     }
