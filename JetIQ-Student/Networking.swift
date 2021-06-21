@@ -8,10 +8,13 @@
 
 import SwiftUI
 import Combine
+import Extension
 
-struct APIClient {
+struct APIClient
+{
     
-    struct Response<T> {
+    struct Response<T>
+    {
         let value: T
         let response: URLResponse
     }
@@ -90,6 +93,7 @@ class LoginViewModel: ObservableObject {
     private let login_error_no_data = "API sent no data in response"
     private let login_error_recv_failed = "Revieve failed"
     private let login_error_json_parse_failed = "API retured null. Try again."
+    private let login_error_api_outage = "API unreachable\nPossible outage"
     private let login_error_unknown_error = "Unknown error"
 }
 
@@ -156,14 +160,17 @@ extension LoginViewModel
                 print(error)
                 if let urlError = error as? URLError
                 {
+                    print("urlerror: \(urlError.code)")
                     switch urlError.code
                     {
-                    case .notConnectedToInternet:
+                    case .notConnectedToInternet, .networkConnectionLost:
                         self.login_error_message = self.login_error_no_internet
                     case .dataNotAllowed:
                         self.login_error_message = self.login_error_no_internet
                     case .cannotDecodeRawData:
                         self.login_error_message = self.login_error_no_data
+                    case .cannotConnectToHost, .timedOut:
+                        self.login_error_message = self.login_error_api_outage
                     default:
                         self.login_error_message = self.login_error_unknown_error
                     }
@@ -294,7 +301,7 @@ extension ScheduleViewModel
             }
         if days_shown_str != "All", let days_count = Int(days_shown_str)
         {
-            return Array(arr[0...days_count-1])
+            return Array(arr[safe:0...days_count-1])
         }
         else
         {

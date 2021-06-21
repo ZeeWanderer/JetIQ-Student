@@ -9,7 +9,8 @@
 import SwiftUI
 import SwiftUIPullToRefresh
 
-class SuccessLogModel: ObservableObject {
+class SuccessLogModel: ObservableObject
+{
     @Published var success_log: APIJsons.SuccessLog? = nil
     
     @Published var isLoading = false
@@ -101,9 +102,10 @@ struct SL_SubjectView: View
     }
 }
 
-struct SuccessLogView: View {
+struct SuccessLogView: View
+{
     @EnvironmentObject var userData:UserData
-    @ObservedObject private var success_log_ = SuccessLogModel()
+    @StateObject private var success_log_ = SuccessLogModel()
     var body: some View
     {
         VStack

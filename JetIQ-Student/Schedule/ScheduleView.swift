@@ -68,7 +68,7 @@ import SwiftUIPullToRefresh
 struct ScheduleView: View
 {
     @EnvironmentObject var userData:UserData
-    @ObservedObject private var schedule_ = ScheduleViewModel()
+    @StateObject private var schedule_ = ScheduleViewModel()
     @AppStorage("numberOfDaysScheduleShown") var schedule_days_count:String = "10"
     
     @Environment(\.colorScheme) var colorScheme

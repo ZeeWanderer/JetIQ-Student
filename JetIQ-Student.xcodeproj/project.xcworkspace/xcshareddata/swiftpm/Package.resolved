@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Extension",
+        "repositoryURL": "https://github.com/ZeeWanderer/Extension",
+        "state": {
+          "branch": "main",
+          "revision": "d61c5e329afe2e14d317a4bace3f7b7297870ea7",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftUIPullToRefresh",
         "repositoryURL": "https://github.com/muhammedtanriverdi/SwiftUIPullToRefresh.git",
         "state": {
