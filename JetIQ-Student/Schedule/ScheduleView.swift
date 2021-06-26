@@ -108,33 +108,59 @@ struct ScheduleView: View
             }
             else
             {
-                List
+                let days_filtered = schedule_.daysFiltered(userData.subgroup!, schedule_days_count)
+                
+                if !days_filtered.isEmpty
                 {
-                    if !schedule_.fetch_error_message.isEmpty
+                    
+                    List
                     {
-                        build_error_text()
-                    }
-                    ForEach(schedule_.daysFiltered(userData.subgroup!, schedule_days_count))
-                    { day in
-                        Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
+                        if !schedule_.fetch_error_message.isEmpty
                         {
-                            ForEach(day.Lessons)
+                            build_error_text()
+                        }
+                        ForEach(days_filtered)
+                        { day in
+                            Section(header: Text("\(day.dow) \(day.date) нд \(day.weeks_shift)(\(day.week_num))"))
                             {
-                                lesson in
-                                LessonView(lesson: lesson)
-                                    .contextMenu {
-                                        LessonContextMenu(lesson: lesson)
-                                    }
-                                    .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
-                            }
-                        }.listRowInsets(EdgeInsets())
+                                ForEach(day.Lessons)
+                                {
+                                    lesson in
+                                    LessonView(lesson: lesson)
+                                        .contextMenu {
+                                            LessonContextMenu(lesson: lesson)
+                                        }
+                                        .listRowBackground(lesson.GetLessonColor(colorScheme: colorScheme))
+                                }
+                            }.listRowInsets(EdgeInsets())
+                        }
+                    }
+                    .listStyle(PlainListStyle())
+                    .navigationViewStyle(StackNavigationViewStyle())
+                    .background(SwiftUIPullToRefresh(action: {
+                        self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
+                    }, isShowing: self.$schedule_.performingFetch))
+                }
+                else
+                {
+                    VStack
+                    {
+                        Text("No Lessons Scheduled").foregroundColor(.gray)
+                        Button(action: {
+                            schedule_.schedule_r = nil
+                            self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
+                            
+                        }, label: {
+                            Text("Reload").foregroundColor(.gray)
+                        })
+                        .padding(10.0)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10.0)
+                                .stroke(lineWidth: 2.0)
+                                .foregroundColor(.gray)
+                        )
                     }
                 }
-                .listStyle(PlainListStyle())
-                .navigationViewStyle(StackNavigationViewStyle())
-                .background(SwiftUIPullToRefresh(action: {
-                    self.schedule_.getSchedule(userData.group_id ?? "", userData.f_id ?? "")
-                }, isShowing: self.$schedule_.performingFetch))
             }
         }.navigationBarTitle(Text("Schedule"), displayMode: .inline)
     }
