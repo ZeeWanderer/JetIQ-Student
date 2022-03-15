@@ -172,7 +172,7 @@ struct SubjectView : View
 struct MarkbookView: View
 {
     @EnvironmentObject var userData:UserData
-    @ObservedObject private var markbook_ = MarkbookModel()
+    @StateObject private var markbook_ = MarkbookModel()
     
     var body: some View
     {
@@ -180,7 +180,7 @@ struct MarkbookView: View
         {
             if (!markbook_.isAvailable)
             {
-                Text("Loading...")
+                ProgressView("loading")
                     .onAppear (perform: {
                         self.markbook_.fetch(self.userData)
                     })

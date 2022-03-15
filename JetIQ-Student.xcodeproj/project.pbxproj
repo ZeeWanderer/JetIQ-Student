@@ -28,6 +28,7 @@
 		5096472323C612D90000758C /* SubgroupSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5096472223C612D90000758C /* SubgroupSelectionView.swift */; };
 		509F61D32526546A00C8FF71 /* SuccessLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F61D22526546A00C8FF71 /* SuccessLogDetailView.swift */; };
 		50B687DD24BF87C70093E603 /* JetIQStudentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B687DC24BF87C70093E603 /* JetIQStudentApp.swift */; };
+		B6052EB92680BC5500AEA1AC /* Extension in Frameworks */ = {isa = PBXBuildFile; productRef = B6052EB82680BC5500AEA1AC /* Extension */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6052EB92680BC5500AEA1AC /* Extension in Frameworks */,
 				5056C1A92526366600B53E3A /* SwiftUIPullToRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,12 +120,12 @@
 				505E893B2395423000694E0F /* UserData.swift */,
 				505E893F23954B7000694E0F /* ArchState.swift */,
 				5056C1B525263F4600B53E3A /* LocalStorage.swift */,
+				509576D125D54CE2004E649F /* Networking.swift */,
 				5063689E2395286800067291 /* Assets.xcassets */,
 				506368A32395286800067291 /* LaunchScreen.storyboard */,
 				506368A62395286800067291 /* Info.plist */,
 				506368992395286400067291 /* JetIQ_Student.xcdatamodeld */,
 				506368A02395286800067291 /* Preview Content */,
-				509576D125D54CE2004E649F /* Networking.swift */,
 			);
 			path = "JetIQ-Student";
 			sourceTree = "<group>";
@@ -164,6 +166,7 @@
 			name = "JetIQ-Student";
 			packageProductDependencies = (
 				5056C1A82526366600B53E3A /* SwiftUIPullToRefresh */,
+				B6052EB82680BC5500AEA1AC /* Extension */,
 			);
 			productName = "JetIQ-Student";
 			productReference = 506368922395286400067291 /* JetIQ-Student.app */;
@@ -195,6 +198,7 @@
 			mainGroup = 506368892395286400067291;
 			packageReferences = (
 				5056C1A72526366600B53E3A /* XCRemoteSwiftPackageReference "SwiftUIPullToRefresh" */,
+				B6052EB72680BC5500AEA1AC /* XCRemoteSwiftPackageReference "Extension" */,
 			);
 			productRefGroup = 506368932395286400067291 /* Products */;
 			projectDirPath = "";
@@ -406,7 +410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -428,7 +432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = five.systems.development.VNTU.JetIQ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -468,6 +472,14 @@
 				kind = branch;
 			};
 		};
+		B6052EB72680BC5500AEA1AC /* XCRemoteSwiftPackageReference "Extension" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeWanderer/Extension";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -475,6 +487,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5056C1A72526366600B53E3A /* XCRemoteSwiftPackageReference "SwiftUIPullToRefresh" */;
 			productName = SwiftUIPullToRefresh;
+		};
+		B6052EB82680BC5500AEA1AC /* Extension */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6052EB72680BC5500AEA1AC /* XCRemoteSwiftPackageReference "Extension" */;
+			productName = Extension;
 		};
 /* End XCSwiftPackageProductDependency section */
 

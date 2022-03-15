@@ -20,8 +20,8 @@ struct JetIQStudentApp: App {
     
     @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
     
-    init() {
-        
+    init()
+    {
         URLSession.shared.configuration.httpCookieAcceptPolicy = .always
         URLSession.shared.configuration.httpShouldSetCookies = true
         URLSession.shared.configuration.waitsForConnectivity = true

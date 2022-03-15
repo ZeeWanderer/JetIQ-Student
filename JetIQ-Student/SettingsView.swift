@@ -15,6 +15,8 @@ struct SettingsView: View
     @State var selectedSubgroup:String
     @EnvironmentObject var userData:UserData
     @AppStorage("isLoggedIn") var isLoggedIn:Bool = false
+    @AppStorage("numberOfDaysScheduleShown") var schedule_days_count:String = "10"
+    let schedule_day_options = ["5", "10", "15", "20", "30", "50", "All"]
     
     let subgroups = ["None", "1", "2", "3", "4", "5"]
     
@@ -24,16 +26,22 @@ struct SettingsView: View
         {
             Section(header: Text("User Settings"))
             {
-                HStack
+                Picker(selection: $selectedSubgroup, label: Text("Subgroups"))
                 {
-                    Picker(selection: $selectedSubgroup, label: Text("Subgroups"))
-                    {
-                        ForEach(subgroups, id: \.self) { string in
-                            Text(string)
-                                .tag(string)
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
-                    
+                    ForEach(subgroups, id: \.self) { string in
+                        Text(string)
+                            .tag(string)
+                    }
+                }.pickerStyle(SegmentedPickerStyle())
+            }
+            Section(header: Text("Schedule"))
+            {
+                Picker(selection: $schedule_days_count, label: Text("Number of days displayed"))
+                {
+                    ForEach(schedule_day_options, id: \.self) { string in
+                        Text(string)
+                            .tag(string)
+                    }
                 }
             }
             Section(header: Text(""))

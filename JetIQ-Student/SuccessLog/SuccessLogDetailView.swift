@@ -131,7 +131,7 @@ struct SuccessLogDetailView: View {
         {
             if !success_log_.isAvailable
             {
-                Text("Loading...")
+                ProgressView("loading")
                     .onAppear (perform: {
                         self.success_log_.fetch(userData, subject)
                     })
