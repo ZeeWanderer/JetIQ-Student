@@ -34,7 +34,6 @@
 /* Begin PBXFileReference section */
 		501C6E952524EC4400AB6A2E /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		50326D5F242A891500539BEE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		5053C71E251CD9E9001D8033 /* increment_build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = increment_build.sh; sourceTree = "<group>"; };
 		5056C1B525263F4600B53E3A /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		5056C1B825264B0F00B53E3A /* SuccessLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessLogView.swift; sourceTree = "<group>"; };
 		505E893323952F0900694E0F /* MarkbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkbookView.swift; sourceTree = "<group>"; };
@@ -79,18 +78,9 @@
 			path = Schedule;
 			sourceTree = "<group>";
 		};
-		5053C71D251CD9CF001D8033 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				5053C71E251CD9E9001D8033 /* increment_build.sh */,
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
 		506368892395286400067291 = {
 			isa = PBXGroup;
 			children = (
-				5053C71D251CD9CF001D8033 /* Scripts */,
 				506368942395286400067291 /* JetIQ-Student */,
 				506368932395286400067291 /* Products */,
 			);
@@ -154,7 +144,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 506368A92395286800067291 /* Build configuration list for PBXNativeTarget "JetIQ-Student" */;
 			buildPhases = (
-				5053C721251CDA52001D8033 /* Set Build Number */,
 				5063688E2395286400067291 /* Sources */,
 				5063688F2395286400067291 /* Frameworks */,
 				506368902395286400067291 /* Resources */,
@@ -221,27 +210,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5053C721251CDA52001D8033 /* Set Build Number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Set Build Number";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Scripts/increment_build.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5063688E2395286400067291 /* Sources */ = {
